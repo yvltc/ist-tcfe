@@ -1,0 +1,135 @@
+\section{Theoretical Analysis}
+\label{sec:analysis}
+The circuit presented in Figure \ref{fig:t1circuit} has eight nodes, eleven branches, four elementary meshes and thirteen loops. It is going to be attributed zero potential to one of the nodes, which we will call  \textit{reference} or \textit{ground node}.
+Consequently, we will need seven node equations to get the voltages in the other nodes and four mesh equations to get the mesh currents. 
+\subsection{Analysis using the mesh method}
+\begin{figure}[!htp] \centering
+\includegraphics[width=0.8\textwidth]{mesh.pdf}
+\caption{Circuit from the mesh method point of view}
+\label{fig2}
+\end{figure}
+\FloatBarrier
+
+Mesh analysis is a useful method for determining the currents flowing through each resistor. We define the mesh currents ($I_A$, $I_B$, $I_C$ and $I_D$ as shown in Figure \ref{fig2}), one for each mesh. Then we apply KVL and Ohm's Law to the two meshes without current sources to get
+
+\begin{align*}
+V_a + R_1 I_A + R_4 (I_A - I_C) &= R_3 (I_B - I_A) \\
+R_6 I_C + R_7 I_C &= V_C + R_4 (I_A + I_C)
+\end{align*}
+
+In order to complete the four equations needed, we observe
+
+\begin{align*}
+I_D &= I_d \\ 
+I_B &= I_b
+\end{align*}
+
+Substituting $I_b$ for its corresponding formula $K_b V_b$ (due to it being a dependent current source), the final system can be derived and thus the mesh currents can be determined:
+
+$$
+\begin{cases} 
+I_D = I_d  \\ 
+I_B = K_b R_3 (I_B-I_A) \\
+V_a + R_1 I_A + R_4 (I_A - I_C) = R_3 (I_B - I_A) \\
+R_6 I_C + R_7 I_C = V_C + R_4 (I_A + I_C)
+\end{cases}
+$$
+
+\begin{table}[h]                             
+\centering                                  % para centr. tabela                         
+\def\arraystretch{1.2}                       % esp. entre linhas
+
+\begin{tabular}{c|c}                    % lr = 2 col (esq/dir)
+\hline                                  % linha topo
+
+\textbf{Name}  & \textbf{Value [A or V]}\\
+\hline                                % linha
+\input{Mesh_tab}
+\hline                                % linha final
+\end{tabular}   
+\caption{Mesh analysis results. All currents \textit{I} expressed in Ampère; all voltages \textit{V} expressed in Volt.}
+\label{tab_2}  
+\end{table}                             
+
+
+\begin{comment}
+\begin{table}[h]
+  \centering
+  \begin{tabular}{|l|r|}
+    \hline    
+    {\bf Name} & {\bf Value [A or V]} \\ \hline
+    \input{Mesh_tab}
+  \end{tabular}
+  \caption{Mesh analysis results. All currents \textit{I} expressed in Ampère; all voltages \textit{V} expressed in Volt.}
+  \label{tab:op}
+\end{table}
+\end{comment}
+\FloatBarrier
+
+\subsection{Analysis using the node method}
+\begin{figure}[!htp] \centering
+\includegraphics[width=0.8\textwidth]{node.pdf}
+\caption{Circuit from the node method point of view}
+\label{fig3}
+\end{figure}
+\FloatBarrier
+
+The main use of the node analysis is identifying the voltage in every node of the circuit. The first step to do so is to define the ground, the one node that has zero potential ($V_0=0$). The second step is to number each other node, so that when we reference the voltage in the node $i$ we use the abbreviation $V_i$. We also use the notation $I_i$ to refer to the current flowing through the resistor $R_i$, with the exceptions of $I_c$ flowing through $R_6$ and $I_x$ flowing through the dependent voltage source. Applying KCL to every non-reference node, we are able to deduce the five equations below.
+
+\begin{align*}
+I_7&=I_C \\ 
+I_4&=I_1+I_C\\
+I_3+I_x&=I_4+I_5 \\
+I_b&=I_5+I_d \\
+I_1&=I_2+I_3
+\end{align*}
+
+By direct observation, we are also able to equate
+\begin{align*}
+V_1&=V_a \\
+V_c&=V_3-V_6
+\end{align*}
+
+Note that, since $V_c$ is the voltage of the dependent voltage source, its value can be calculated by the subtraction of the voltages nodes $3$ and $6$, as stated in the second equation of the last system. To solve the seven equations and later on compute them into a matrix, we have to rewrite them using only $V_i$ as variables with $i=1,2,3,4,5,6,7$. It's important to point out that the current always flows from a higher potential to a lower one and, therefore, we can define the currents $I_c$, $I_b$ and $I_x$ as
+\begin{align*}
+I_c&=\frac{V_0-V_7}{R_6}=-\frac{V_7}{R_6}\\
+I_b&=K_bV_b=K_b(V_2-V_3)\\
+I_x&=I_7-I_d=\frac{V_7-V_6}{R_7}-I_d
+\end{align*}
+Logical substitutions lead us to the system of equations that is present below.\par
+
+$$
+\begin{cases}
+  V_1=V_a\\
+  V_3-V_6=-\frac{K_c}{R_6}V_7\\
+  \frac{V_7-V_6}{R_7}=-\frac{V_7}{R_6}\\
+  \frac{V_3}{R_4}=\frac{V_1-V_2}{R_1}-\frac{V_7}{R_6}\\
+  \frac{V_2-V_3}{R_3}+\frac{V_7-V_6}{R_7}-I_d=\frac{V_3}{R_4}+\frac{V_3-V_5}{R_5}\\
+  K_b(V_2-V_3)=\frac{V_3-V_5}{R_5}+I_d\\
+  \frac{V_1-V_2}{R_1}=\frac{V_2-V_3}{R_3}+\frac{V_2-V_4}{R_2}
+\end{cases}
+$$
+
+\begin{table}[h]                             
+
+\centering                                  % para centr. tabela
+                        
+\def\arraystretch{1.2}                       % esp. entre linhas
+
+
+\begin{tabular}{c|c}                    % lr = 2 col (esq/dir)
+\hline                                  % linha topo
+
+\textbf{Name}  & \textbf{Value [A or V]}\\     
+
+\hline                                % linha
+\input{Nodal_tab}
+\hline                                % linha final
+\end{tabular}   
+\caption{Nodal analysis results. All currents \textit{I} expressed in Ampère; all voltages \textit{V} expressed in Volt.}
+\label{tab_3}   
+\end{table}                             
+\FloatBarrier
+
+
+

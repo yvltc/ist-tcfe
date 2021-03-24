@@ -1,0 +1,34 @@
+\section{Simulation Analysis Using \emph{NgSpice}}
+\label{sec:simulation}
+
+
+Table \ref{op:tab_4} shows the simulated operating point results for the circuit
+under analysis. It is possible to see that table \ref{op:tab_4} shows the current that goes through all the resistors as well as the voltage in each node. 
+
+However, as we can see there is an additional node when compared to the number of nodes that the circuit truly has. Since the circuit has a current-controlled voltage source, in order to be able to define this component in the \emph{NgSpice} netlist, a current value that goes through another voltage source is required. However, in this circuit, this current value must be the same that goes through the resistor $R_6$. Therefore, an additional voltage source, $V_{aux}$, was added to the circuit between $R_6$ and $R_7$ with voltage equal to 0V, DC. Thus, this additional voltage source will have the same current that goes through $R_6$. A new node 8 that connects $R_6$ to $V_{aux}$, is created. Accordingly, node 7 will connect $V_{aux}$ to $R_7$.\\
+
+\begin{table}[h]
+  \centering
+  \def\arraystretch{1.2}
+ 
+\begin{tabular}{c|c}
+    \hline    
+    \textbf{Name} & \textbf{Value [A or V]} \\ \hline
+    \input{op_tab}
+    \hline
+  \end{tabular}
+  \captionsetup{justification=centering, margin=2cm}
+  \caption{Operating point. Values obtained from the \emph{NgSpice} script. A variable preceded by @ is of type {\em current} and expressed in Ampere; other variables are of type {\it voltage} and expressed in Volt.}
+  \label{op:tab_4}
+\end{table}
+\FloatBarrier
+
+The \emph{Ngspice} netlist is done according to the following "positive" and "negative" nodes associated to the passive elements:
+\begin{figure}[!htp] \centering
+\includegraphics[width=0.5\textwidth]{T1_Circuit_NgSpice.pdf}
+\captionsetup{justification=centering, margin=2cm}
+\caption{T1 Circuit with "positive" and "negative" nodes associated to the passive elements}
+\label{fig:t1circuitNgSpice}
+\end{figure}
+\FloatBarrier
+
