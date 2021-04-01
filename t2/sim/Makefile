@@ -9,6 +9,6 @@ ngspice.log: ../sim/t2_11.cir
 	ngspice -b $< -o $@
 
 clean:
-	@rm -f ngspice.log data1_ng.txt
+	@rm -f ngspice.log data1_ng.txt op_tab.tex
 
 .PHONY: all clean
