@@ -21,22 +21,21 @@ C = Data(9) * 10^(-6);
 Kb = Data(10) * 10^(-3);
 Kd = Data(11) * 10^3;
 
-fp = fopen("data1_ng.txt", "w")
-
-fprintf(fp, "R1 1 2 %.11fk\n", Data(1))
-fprintf(fp, "R2 2 3 %.11fk\n", Data(2))
-fprintf(fp, "R3 2 5 %.11fk\n", Data(3))
-fprintf(fp, "R4 5 0 %.11fk\n", Data(4))
-fprintf(fp, "R5 5 6 %.11fk\n", Data(5))
-fprintf(fp, "R6 0 4 %.11fk\n", Data(6))
-fprintf(fp, "R7 7 8 %.11fk\n", Data(7))
-fprintf(fp, "Vs 1 0 DC %.11f\n", Data(8))
-fprintf(fp, "C 6 8 %.11fu\n", Data(9))
-fprintf(fp, "Gb 6 3 (2,5) %.11fm\n", Data(10))
-fprintf(fp, "Hd 5 8 Vaux %.11fk\n", Data(11))
-fprintf(fp, "Vaux 4 7 DC 0")
-
-fclose(fp)
+diary "data1_ng.txt"
+diary on
+printf("R1 1 2 %.11fk\n", Data(1))
+printf("R2 2 3 %.11fk\n", Data(2))
+printf("R3 2 5 %.11fk\n", Data(3))
+printf("R4 5 0 %.11fk\n", Data(4))
+printf("R5 5 6 %.11fk\n", Data(5))
+printf("R6 0 4 %.11fk\n", Data(6))
+printf("R7 7 8 %.11fk\n", Data(7))
+printf("Vs 1 0 DC %.11f\n", Data(8))
+printf("C 6 8 %.11fu\n", Data(9))
+printf("Gb 6 3 (2,5) %.11fm\n", Data(10))
+printf("Hd 5 8 Vaux %.11fk\n", Data(11))
+printf("Vaux 4 7 DC 0")
+diary off
 
 A = [-1/R1, 1/R1 + 1/R2 + 1/R3, -1/R2, -1/R3, 0, 0, 0;
      
@@ -73,7 +72,7 @@ I7_1 = (V7_1 - V8_1)/R7;
 
 Ib_1 = Kb*(V2_1 - V5_1);
 
-diary "Nodal_tab.tex"
+diary "Nodal1_tab.tex"
 diary on
 printf("$I_b$ & %e\n", Ib_1);
 printf("$I_c$ & 0\n");
@@ -108,22 +107,6 @@ printf("Vaux 4 7 DC 0\n");
 printf("Hd 5 8 Vaux %.11fk\n", Data(11));
 printf("Gb 6 3 (2,5) %.11fm\n", Data(10));
 diary off
-
-%A = [-1/R1, 1/R1 + 1/R2 + 1/R3, -1/R2, -1/R3, 0, 0, 0, 0;
-
-%    0, Kb + 1/R2, -1/R2, -Kb, 0, 0, 0, 0;
-    
- %   1/R1, -1/R1, 0, -1/R4, 0, -1/R6, 0, 0;
-    
-  %  0, -1/R3, 0, 1/R3 + 1/R4 + 1/R5, -1/R5, -1/R7, 1/R7, 1;
-    
-   % 0, Kb, 0, -(Kb + 1/R5), 1/R5, 0, 0, -1;
-    
-    %0, 0, 0, 0, 0, 1/R6 + 1/R7, -1/R7, 0;
-    
-    %0, 0, 0, 0, 1, 0, -1, 0;
-    
-    %0, 0, 0, 1, 0, Kd/R6, -1, 0]
     
 A = [-1/R1, 1/R1 + 1/R2 + 1/R3, -1/R2, -1/R3, 0, 0, 0;
      
@@ -149,6 +132,46 @@ Req = (V6_1 - V8_1)/Ix
 
 tau = Req*C
 
+V1_2 = D(1);
+V2_2 = D(2);
+V3_2 = D(3);
+V5_2 = D(4);
+V6_2 = D(5);
+V7_2 = D(6);
+V8_2 = D(7);
+
+I1_2 = (V1_1 - V2_1)/R1;
+I2_2 = (V2_1 - V3_1)/R2;
+I3_2 = (V2_1 - V5_1)/R3;
+I4_2 = V5_1/R4;
+I5_2 = (V5_1 - V6_1)/R5;
+I6_2 = -V7_1/R6;
+I7_2 = (V7_1 - V8_1)/R7;
+
+Ib_2 = Kd*(V2_2 - V5_2);
+
+diary "Nodal2_tab.tex"
+diary on
+printf("$I_b$ & %e\n", Ib_2);
+printf("$I_c$ & %e\n", Ix);
+printf("$I_1$ & %e\n", I1_2);
+printf("$I_2$ & %e\n", I2_2);
+printf("$I_3$ & %e\n", I3_2);
+printf("$I_4$ & %e\n", I4_2);
+printf("$I_5$ & %e\n", I5_2);
+printf("$I_6$ & %e\n", I6_2);
+printf("$I_7$ & %e\n", I7_2);
+printf("$V_1$ & %f\n", V1_2);
+printf("$V_2$ & %f\n", V2_2);
+printf("$V_3$ & %f\n", V3_2);
+printf("$V_5$ & %f\n", V5_2);
+printf("$V_6$ & %f\n", V6_2);
+printf("$V_7$ & %f\n", V7_2);
+printf("$V_8$ & %f\n", V8_2);
+printf("$R_{eq}$ & %f\n", Req);
+printf("$\\tau$ & %f\n", tau);
+diary off
+
 diary "data3_ng.txt"
 diary on
 printf("R1 1 2 %.11fk\n", Data(1));
@@ -160,6 +183,34 @@ printf("R6 0 4 %.11fk\n", Data(6));
 printf("R7 7 8 %.11fk\n", Data(7));
 printf("C 6 8 %.11fu\n", Data(9));
 printf("Vs 1 0 DC 0\n");
+printf("Vaux 4 7 DC 0\n");
+printf("Hd 5 8 Vaux %.11fk\n", Data(11));
+printf("Gb 6 3 (2,5) %.11fm\n", Data(10));
+printf(".ic v(6) = %.11f v(8) = 0", V6_1 - V8_1);
+diary off
+
+Vx = V6_1 - V8_1
+
+v6n = figure();
+x = 0:0.1:20;
+plot(x, Vx * e.^(-x*10^(-3)/tau));
+xlabel ("t [ms]");
+ylabel ("v6n(t) [V]");
+title ("Natural solution");
+
+print(v6n, "natural.eps", "-depsc");
+
+diary "data4_ng.txt"
+diary on
+printf("R1 1 2 %.11fk\n", Data(1));
+printf("R2 2 3 %.11fk\n", Data(2));
+printf("R3 2 5 %.11fk\n", Data(3));
+printf("R4 5 0 %.11fk\n", Data(4));
+printf("R5 5 6 %.11fk\n", Data(5));
+printf("R6 0 4 %.11fk\n", Data(6));
+printf("R7 7 8 %.11fk\n", Data(7));
+printf("C 6 8 %.11fu\n", Data(9));
+printf("Vs 1 0 DC 0 AC 1 SIN(0 1 1k)\n", Data(8));
 printf("Vaux 4 7 DC 0\n");
 printf("Hd 5 8 Vaux %.11fk\n", Data(11));
 printf("Gb 6 3 (2,5) %.11fm\n", Data(10));

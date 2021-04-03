@@ -1,4 +1,4 @@
-all: ngspice1.log ngspice2.log ngspice3.log
+all: ngspice1.log ngspice2.log ngspice3.log ngspice4.log
 	$(eval NGSFIGS=$(shell grep _FIG $< | sed 's/_FIG//g' | sed ':a;N;$!ba;s/\n/ /g'))
 	$(eval NGSFIGPS=$(addsuffix .ps, $(NGSFIGS)))
 	$(foreach i, $(NGSFIGPS), ps2pdf $i;)
@@ -12,6 +12,9 @@ all: ngspice1.log ngspice2.log ngspice3.log
 	$(eval NGSFIGS=$(shell grep _FIG $(word 3,$^) | sed 's/_FIG//g' | sed ':a;N;$!ba;s/\n/ /g'))
 	$(eval NGSFIGPS=$(addsuffix .ps, $(NGSFIGS)))
 	$(foreach i, $(NGSFIGPS), ps2pdf $i;)
+	$(eval NGSFIGS=$(shell grep _FIG $(word 4,$^) | sed 's/_FIG//g' | sed ':a;N;$!ba;s/\n/ /g'))
+	$(eval NGSFIGPS=$(addsuffix .ps, $(NGSFIGS)))
+	$(foreach i, $(NGSFIGPS), ps2pdf $i;)
 	
 ngspice1.log: t2_1.cir
 	ngspice -b $< -o $@
@@ -20,6 +23,9 @@ ngspice2.log: t2_2.cir
 	ngspice -b $< -o $@
 	
 ngspice3.log: t2_3.cir
+	ngspice -b $< -o $@
+	
+ngspice4.log: t2_4.cir
 	ngspice -b $< -o $@
 
 clean:
