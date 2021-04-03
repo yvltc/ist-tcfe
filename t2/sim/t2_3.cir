@@ -1,0 +1,32 @@
+ NGSPICE simulation script
+* BJT amp with feedback
+
+* forces current values to be saved
+.options savecurrents
+
+.INCLUDE data3_ng.txt
+
+.end
+.control
+op
+
+*makes plots in color
+set hcopypscolor=0
+set color0=white
+set color1=black
+set color2=red
+set color3=blue
+set color4=violet
+set color5=rgb:3/8/0
+set color6=rgb:4/0/0
+
+echo "********************************************"
+echo  "Transient analysis"
+echo "********************************************"
+tran 1e-5 20e-3
+
+hardcopy transv6.ps v(6)
+echo transv6_FIG
+
+quit
+.endc

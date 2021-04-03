@@ -1,0 +1,24 @@
+ NGSPICE simulation script
+* BJT amp with feedback
+
+* forces current values to be saved
+.options savecurrents
+
+.INCLUDE data2_ng.txt
+.end
+
+.control
+op
+
+echo "********************************************"
+echo  "Operating point"
+echo "********************************************"
+
+let Req = (v(8)-v(6))/vx#branch
+let Vx = v(6)-v(8)
+echo  "op2_TAB"
+print all
+echo  "op2_END"
+
+quit
+.endc

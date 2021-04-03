@@ -8,7 +8,7 @@
 
 	
 all: 
-	echo 95807 | python2.7 t2_datagen.py > data.txt
+	echo 95787 | python2.7 t2_datagen.py > data.txt
 	sed -i -e '1,8d;20,22d' data.txt
 	sed -i 's/Values:  //g' data.txt
 	mv data.txt ~/ist-tcfe/t2/mat

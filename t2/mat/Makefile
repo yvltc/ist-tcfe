@@ -1,9 +1,10 @@
 octave.log: t2.m
 	octave $< > $@
-	mv data1_ng.txt ../sim
+	mv *_ng.txt ../sim
+	sed -i 's/$$/\\\\ \\hline/g' Nodal_tab.tex
 
 clean:
-	@rm -f octave.log data.txt
+	@rm -f octave.log data.txt *_tab.tex
 	
 
 .PHONY: clean
