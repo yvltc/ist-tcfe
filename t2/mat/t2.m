@@ -1,3 +1,5 @@
+pkg load symbolic
+
 close all
 clear all
 
@@ -210,9 +212,51 @@ printf("R5 5 6 %.11fk\n", Data(5));
 printf("R6 0 4 %.11fk\n", Data(6));
 printf("R7 7 8 %.11fk\n", Data(7));
 printf("C 6 8 %.11fu\n", Data(9));
-printf("Vs 1 0 DC 0 AC 1 SIN(0 1 1k)\n", Data(8));
+printf("Vs 1 0 DC 0 AC 1 -90 SIN(0 1 1k)\n", Data(8));
 printf("Vaux 4 7 DC 0\n");
 printf("Hd 5 8 Vaux %.11fk\n", Data(11));
 printf("Gb 6 3 (2,5) %.11fm\n", Data(10));
 printf(".ic v(6) = %.11f v(8) = 0", V6_1 - V8_1);
+diary off
+
+%syms vs(t,f)
+%vs(t,f) = e^(2*pi*f*J*t)
+
+Zc = 1/(J*2*pi*10^3*C)
+
+A = [-1/R1, 1/R1+1/R2+1/R3, -1/R2, -1/R3, 0, 0, 0;
+     
+      0, Kb+1/R2, -1/R2, -Kb, 0, 0, 0;
+      
+      1/R1, -1/R1, 0, -1/R4, 0, -1/R6, 0;
+      
+      0, Kb, 0, -(1/R5+Kb), 1/R5+1/Zc, 0, -1/Zc;
+      
+      0, 0, 0, 0, 0, 1/R6+1/R7, -1/R7;
+      
+      1, 0, 0, 0, 0, 0, 0;
+      
+      0, 0, 0, 1, 0, Kd/R6, -1]
+
+B = [0; 0; 0; 0; 0; 1; 0]
+
+D = A\B
+
+V1_4 = abs(D(1));
+V2_4 = abs(D(2));
+V3_4 = abs(D(3));
+V5_4 = abs(D(4));
+V6_4 = abs(D(5));
+V7_4 = abs(D(6));
+V8_4 = abs(D(7));
+
+diary "Nodal4_tab.tex"
+diary on
+printf("$V_1$ & %f\n", V1_4);
+printf("$V_2$ & %f\n", V2_4);
+printf("$V_3$ & %f\n", V3_4);
+printf("$V_5$ & %f\n", V5_4);
+printf("$V_6$ & %f\n", V6_4);
+printf("$V_7$ & %f\n", V7_4);
+printf("$V_8$ & %f\n", V8_4);
 diary off

@@ -29,5 +29,24 @@ tran 1e-5 20e-3
 hardcopy totalresponse.ps v(6) v(1)
 echo totalresponse_FIG
 
+
+echo "********************************************"
+echo  "Frequency response"
+echo "********************************************"
+AC DEC 10 0.1 1MEG
+
+let vs = v(1)
+let vc = v(6)-v(8)
+
+hardcopy frequencyresponse.ps db(v(6)) db(vs) db(vc)
+echo frequencyresponse_FIG
+
+let phase_v(6) = 180/PI*ph(v(6))
+let phase_vs = 180/PI*ph(vs)
+let phase_vc = 180/PI*ph(vc)
+
+hardcopy phase.ps phase_v(6) phase_vs phase_vc 
+echo phase_FIG
+ 
 quit
 .endc
