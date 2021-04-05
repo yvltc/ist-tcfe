@@ -1,0 +1,71 @@
+\section{Simulation Analysis Using \emph{NgSpice}}
+\label{sec:simulation}
+
+\subsection{Operating point for $t<0$}
+\label{sec:3.1}
+Table \ref{op:tab_4} shows the simulated operating point results for the circuit under analysis when t$<$0s. It is possible to see that table \ref{op:tab_4} shows the current that goes through all the resistors as well as the voltage in each node. 
+
+
+However, as we can see there is an additional node when compared to the number of nodes that the circuit truly has. Since the circuit has a current-controlled voltage source, in order to be able to define this component in the \emph{NgSpice} netlist, a current value that goes through another voltage source is required. However, in this circuit, this current value must be the same that goes through the resistor $R_6$. Therefore, an additional voltage source, $V_{aux}$, was added to the circuit between $R_6$ and $R_7$ with voltage equal to 0V, DC. Thus, this additional voltage source will have the same current that goes through $R_6$. A new node 4 that connects $R_6$ to $V_{aux}$, is created. Accordingly, node 7 will connect $V_{aux}$ to $R_7$.\\
+
+\begin{table}[h]
+  \centering
+  \def\arraystretch{1.2}
+ 
+\begin{tabular}{c|c}
+    \hline    
+    \textbf{Name} & \textbf{Value [A or V]} \\ \hline
+    \input{op_tab}
+    \hline
+  \end{tabular}
+  \captionsetup{justification=centering, margin=2cm}
+  \caption{Operating point for t$<$0. Values obtained from the \emph{NgSpice} script. A variable preceded by @ is of type {\em current} and expressed in Ampere; other variables are of type {\it voltage} and expressed in Volt.}
+  \label{op:tab_4}
+\end{table}
+\FloatBarrier
+
+The \emph{Ngspice} netlist is done according to the following "positive" and "negative" nodes associated to the passive elements:
+\begin{figure}[!htp] \centering
+\includegraphics[width=0.5\textwidth]{t2NgSpice.pdf}
+\captionsetup{justification=centering, margin=2cm}
+\caption{T2 Circuit with "positive" and "negative" nodes associated to the passive elements}
+\label{fig:t2circuitNgSpice}
+\end{figure}
+\FloatBarrier
+
+\subsection{Operating point for $V_s=0$}
+\label{sec:3.2}
+
+Table \ref{op:tab_5} shows the simulated operating point results for the circuit under analysis when $V_s=0$. Furthermore, the capacitor was replaced with an independent voltage source $V_x=V(6)-V(8)$, where $V(6)$ and $V(8)$ are the voltages of the nodes obtained in \ref{sec:3.1}. This change was due to the same reason as explained in %fazer referencia da secção da analise teorica%
+The values obtained 
+
+\begin{table}[h]
+  \centering
+  \def\arraystretch{1.2}
+ 
+\begin{tabular}{c|c}
+    \hline    
+    \textbf{Name} & \textbf{Value [A or V]} \\ \hline
+    \input{op2_tab}
+    \hline
+  \end{tabular}
+  \captionsetup{justification=centering, margin=2cm}
+  \caption{Operating point for $V_s=0$. Values obtained from the \emph{NgSpice} script. A variable preceded by @ is of type {\em current} and expressed in Ampere; other variables are of type {\it voltage} and expressed in Volt.}
+  \label{op:tab_5}
+\end{table}
+\FloatBarrier
+
+\subsection{Natural response of the circuit}
+\label{sec:3.3}
+
+In this section the natural response of the circuit is obtained and the result is presented in \ref{transv6}. 
+
+\begin{figure}[!htp] \centering
+\includegraphics[width=0.30\textwidth]{transv6.pdf}
+\captionsetup{justification=centering, margin=2cm}
+\caption{Natural response of the circuit. Voltage of node v(6) (V) in respect to time.}
+\label{transv6}
+\end{figure}
+\FloatBarrier
+
+
