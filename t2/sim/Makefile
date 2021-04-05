@@ -15,6 +15,7 @@ all: ngspice1.log ngspice2.log ngspice3.log ngspice4.log
 	$(eval NGSFIGS=$(shell grep _FIG $(word 4,$^) | sed 's/_FIG//g' | sed ':a;N;$!ba;s/\n/ /g'))
 	$(eval NGSFIGPS=$(addsuffix .ps, $(NGSFIGS)))
 	$(foreach i, $(NGSFIGPS), ps2pdf $i;)
+	mv *.tex *.pdf ../doc
 	
 ngspice1.log: t2_1.cir
 	ngspice -b $< -o $@
