@@ -11,6 +11,21 @@ Data = fscanf(fp, "%*s = %f")
 
 fclose(fp)
 
+diary "data_tab.tex"
+diary on
+printf("$R_1$ & %.11f\n", Data(1));
+printf("$R_2$ & %.11f\n", Data(2));
+printf("$R_3$ & %.11f\n", Data(3));
+printf("$R_4$ & %.11f\n", Data(4));
+printf("$R_5$ & %.11f\n", Data(5));
+printf("$R_6$ & %.11f\n", Data(6));
+printf("$R_7$ & %.11f\n", Data(7));
+printf("$V_s$ & %.11f\n", Data(8));
+printf("$C$ & %.11f\n", Data(9));
+printf("$K_b$ & %.11f\n", Data(10));
+printf("$K_d$ & %.11f\n", Data(11));
+diary off
+
 R1 = Data(1) * 10^3;
 R2 = Data(2) * 10^3;
 R3 = Data(3) * 10^3;
@@ -190,7 +205,7 @@ diary off
 
 Vx = V6_1 - V8_1;
 fig = figure();
-x = 0:0.1:20;
+x = 0:0.05:20;
 plot(x, Vx * e.^(-x*10^(-3)/tau), "r");
 xlabel ("t [ms]");
 ylabel ("v6n(t) [V]");
@@ -246,7 +261,7 @@ V7f = D(6);
 V8f = D(7);
 
 fig = figure();
-x = 0:0.1:20;
+x = 0:0.05:20;
 fh = function_handle(imag(V6f));
 y = fh(x);
 plot(x, y, "r");
@@ -269,7 +284,7 @@ diary off
 
 fig = figure();
 xi = -5:0.1:0;
-xf = 0:0.1:20;
+xf = 0:0.05:20;
 x = cat(2, xi, xf);
 y1i = Vs*ones(1, size(xi,2));
 y1f = sin(2*pi*1*xf);
