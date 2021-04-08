@@ -24,20 +24,24 @@ However, as we can see there is an additional node when compared to the number o
 \end{table}
 \FloatBarrier
 
+\clearpage
 The \emph{Ngspice} netlist is done according to the following "positive" and "negative" nodes associated to the passive elements:
-\begin{figure}[!htp] \centering
-\includegraphics[width=0.5\textwidth]{t2NgSpice.pdf}
+\vspace*{\stretch{2}}
+\begin{figure}[hp] \centering
+\includegraphics[width=\textwidth]{t2NgSpice.pdf}
 \captionsetup{justification=centering, margin=2cm}
 \caption{T2 Circuit with "positive" and "negative" nodes associated to the passive elements}
 \label{fig:t2circuitNgSpice}
 \end{figure}
 \FloatBarrier
+\vspace*{\stretch{3}}
+\clearpage
 
 \subsection{Operating point for $V_s=0$}
 \label{sec:3.2}
 
-Table \ref{op:tab_5} shows the simulated operating point results for the circuit under analysis when $V_s=0$. Furthermore, the capacitor was replaced with an independent voltage source $V_x=V(6)-V(8)$, where $V(6)$ and $V(8)$ are the voltages of the nodes obtained in \ref{sec:3.1}. This change was due to the same reason as explained in %fazer referencia da secção da analise teorica%
-The values obtained 
+Table \ref{op:tab_5} shows the simulated operating point results for the circuit under analysis when $V_s=0$. Furthermore, the capacitor was replaced with an independent voltage source $V_x=V(6)-V(8)$, where $V(6)$ and $V(8)$ are the voltages of the nodes obtained in section \ref{sec:3.1}. This change was due to the same reason as explained in section \ref{sec2.2}.
+The values obtained were the following:
 
 \begin{table}[h]
   \centering
@@ -55,17 +59,55 @@ The values obtained
 \end{table}
 \FloatBarrier
 
+\clearpage
 \subsection{Natural response of the circuit}
 \label{sec:3.3}
 
-In this section the natural response of the circuit is obtained and the result is presented in \ref{transv6}. 
+In this section the natural response of the circuit is obtained and the result using a transient analysis from 0 to 20ms is presented in figure \ref{transv6}. In order to produce the results, some initial conditions were imposed such as $V_6$ and $V_8$ need to have the same values obtained in \ref{sec:3.2} and presented in \ref{op:tab_5}. However, in order to be easier to program, the group decided to use values obtained from \emph{Octave} since the values were equal to the ones obtained in \emph{Ngspice}. Furthermore, $V_s$ was considered to be an independent voltage source, with direct current (DC) and value equal to 0V.
 
 \begin{figure}[!htp] \centering
-\includegraphics[width=0.30\textwidth]{transv6.pdf}
+\includegraphics[width=0.50\textwidth]{transv6.pdf}
 \captionsetup{justification=centering, margin=2cm}
-\caption{Natural response of the circuit. Voltage of node v(6) (V) in respect to time.}
+\caption{Natural response of the circuit. Voltage of node v(6) (V) in respect to time from 0 to 20ms.}
 \label{transv6}
 \end{figure}
 \FloatBarrier
 
+\clearpage
+\subsection{Total response of the circuit}
+\label{sec:3.4}
+
+While in \ref{sec:3.3} the natural response of the circuit was obtained while defining $V_s$ a DC voltage equal to 0V, in this section $V_s$ is defined as a sinusoidal wave accordingly to \label{fig:t2circuitNgSpice}.
+Therefore, a transient analysis was executed in order to simulate the total response obtained in $V_6$ and the stimulus $V_s$. The plot obtained is shown in figure \ref{totalresponse}.
+
+\begin{figure}[!htp] \centering
+\includegraphics[width=0.50\textwidth]{totalresponse.pdf}
+\captionsetup{justification=centering, margin=2cm}
+\caption{Total response of the circuit. Voltage of node $V_6$ and voltage source $V_s$ (V) in respect to time from 0 to 20ms.}
+\label{totalresponse}
+\end{figure}
+\FloatBarrier
+
+\subsection{Frequency response of the circuit}
+\label{sec:3.5}
+
+In this section, the frequency response for node $V_6$, voltage source $V_s$ and capacitor $V_c$ is simulated for a frequency range from 0.1Hz to 1MHz. The plot obtained from this analysis is shown in figure \ref{frequencyresponse}. The frequency is presented in logarithmic scale and the values of the magnitude is presented in decibel. 
+
+\begin{figure}[!htp] \centering
+\includegraphics[width=0.40\textwidth]{frequencyresponse.pdf}
+\captionsetup{justification=centering, margin=2cm}
+\caption{Frequency response for node $V_6$, voltage source $V_s$ and capacitor $V_c$ (dB) in respect to frequency from 0.1 Hz to 1MHz (logarithm scale)}
+\label{frequencyresponse}
+\end{figure}
+\FloatBarrier
+
+Furthermore, the phases for node $V_6$, voltage source $V_s$ and capacitor $V_c$ are also simulated and presented in the plot below, figure \ref{phase}. The values of the phases are presented in degrees and the frequency is also presented in logarithmic scale.
+
+\begin{figure}[!htp] \centering
+\includegraphics[width=0.40\textwidth]{phase.pdf}
+\captionsetup{justification=centering, margin=2cm}
+\caption{Phases for node $V_6$, voltage source $V_s$ and capacitor $V_c$ (degrees) in respect to frequency from 0.1 Hz to 1MHz (logarithm scale)}
+\label{phase}
+\end{figure}
+\FloatBarrier
 

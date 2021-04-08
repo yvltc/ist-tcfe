@@ -208,7 +208,7 @@ fig = figure();
 x = 0:0.05:20;
 plot(x, Vx * e.^(-x*10^(-3)/tau), "r");
 xlabel ("t [ms]");
-ylabel ("v6n(t) [V]");
+ylabel ("V [V]");
 title ("Natural solution");
 
 print(fig, "natural.eps", "-depsc");

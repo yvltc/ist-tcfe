@@ -1,114 +1,74 @@
 \section{Theoretical Analysis}
 \label{sec:analysis}
-The circuit presented in Figure \ref{fig:t1circuit} has eight nodes, eleven branches, four elementary meshes and thirteen loops. It is going to be attributed zero potential to one of the nodes, which we will call  \textit{reference} or \textit{ground node}.
-Consequently, we will need seven node equations to get the voltages in the other nodes and four mesh equations to get the mesh currents. 
-\subsection{Analysis using the mesh method}
-\begin{figure}[!htp] \centering
-\includegraphics[width=0.8\textwidth]{mesh.pdf}
-\caption{Circuit from the mesh method point of view}
-\label{fig2}
-\end{figure}
-\FloatBarrier
+The RC circuit presented in Figure \ref{fig:t2circuit} has eight nodes, eleven branches, four elementary meshes and thirteen loops. It is going to be attributed zero potential to one of the nodes, which we will call  \textit{reference} or \textit{ground node}.
+Consequently, we will need seven node equations for each usage of the nodal method to get the voltages in the other nodes.
 
-Mesh analysis is a useful method for determining the currents flowing through each resistor. We define the mesh currents ($I_A$, $I_B$, $I_C$ and $I_D$ as shown in Figure \ref{fig2}), one for each mesh. Then we apply KVL and Ohm's Law to the two meshes without current sources to get
+\subsection{Simulating the operating point for $t<0$}\label{sec2.1}
 
-\begin{align*}
-V_a + R_1 I_A + R_4 (I_A - I_C) &= R_3 (I_B - I_A) \\
-R_6 I_C + R_7 I_C &= V_C + R_4 (I_A + I_C)
-\end{align*}
+The voltage function in the voltage source is given by $v_s=V_s u(-t)+sin(2\pi ft)u(t)$, where $V_s$ is a given constant. Considering $t<0$ for the substitution we obtain $v_s=V_s u(-t)$. Remembering that $u$ is a function defined by parts that assumes the value of $0$ for $t<0$ and $1$ for $t\geq 0$, we get $v_s(t)=V_s$. This means that the voltage in the voltage source is constant. 
+Given the relation 
+\begin{equation} \label{eq1}
+    i(t)=C \frac{d}{dt}v(t)
+\end{equation}
+we easily conclude that the current $I_C$ is always zero. 
+Using the node method, we compute the voltages in each node and the currents flowing through each branch for $t<0$, solving the system of equations \ref{eq2}. The results are presented below in table \ref{tab2}.
 
-In order to complete the four equations needed, we observe
-
-\begin{align*}
-I_D &= I_d \\ 
-I_B &= I_b
-\end{align*}
-
-Substituting $I_b$ for its corresponding formula $K_b V_b$ (due to it being a dependent current source), the final system can be derived and thus the mesh currents can be determined:
-
-$$
-\begin{cases} 
-I_D = I_d  \\ 
-I_B = K_b R_3 (I_B-I_A) \\
-V_a + R_1 I_A + R_4 (I_A - I_C) = R_3 (I_B - I_A) \\
-R_6 I_C + R_7 I_C = V_C + R_4 (I_A + I_C)
-\end{cases}
-$$
+\begin{equation} \label{eq2}
+\begin{split}
+-\frac{1}{R_1}V_1+\left(\frac{1}{R_1}+\frac{1}{R_2}+\frac{1}{R_3}\right)V_2-\frac{1}{R_2}V_3-\frac{1}{R_3}V_5&=0 \\
+\left(K_b+\frac{1}{R_2}\right)V_2-\frac{1}{R_2}V_3-K_b V_5&=0 \\
+-\frac{1}{R_3}V_2+\left(\frac{1}{R_3}+\frac{1}{R_4}+\frac{1}{R_5}\right)V_5-\frac{1}{R_5}V_6-\frac{1}{R_7}V_7+\frac{1}{R_7}V_8&=0 \\
+K_b V_2-\left(K_b+\frac{1}{R_5}\right)V_5+\frac{1}{R_5}V_6&=0 \\
+\left(\frac{1}{R_6}+\frac{1}{R_7}\right)V_7-\frac{1}{R_7}V_8&=0 \\
+V_1&=V_s \\ 
+V_5-\frac{K_d}{R_6}V_7-V_8&=0 \\   
+\end{split}
+\end{equation}
 
 \begin{table}[h]                             
-\centering                                  % para centr. tabela                         
-\def\arraystretch{1.2}                       % esp. entre linhas
 
+\centering                                  % para centr. tabela
+                        
+\def\arraystretch{1.2}                       % esp. entre linhas
 \begin{tabular}{c|c}                    % lr = 2 col (esq/dir)
 \hline                                  % linha topo
 
-\textbf{Name}  & \textbf{Value [A or V]}\\
+\textbf{Name}  & \textbf{Value [A or V]}\\     
+
 \hline                                % linha
-\input{Mesh_tab}
+\input{Nodal1_tab}
 \hline                                % linha final
 \end{tabular}   
-\caption{Mesh analysis results. All currents \textit{I} expressed in Ampère; all voltages \textit{V} expressed in Volt.}
-\label{tab_2}  
+
+\caption{Nodal analysis results. All currents \textit{I} expressed in Ampère; all voltages \textit{V} expressed in Volt.}
+\label{tab2}   
 \end{table}                             
-
-
-\begin{comment}
-\begin{table}[h]
-  \centering
-  \begin{tabular}{|l|r|}
-    \hline    
-    {\bf Name} & {\bf Value [A or V]} \\ \hline
-    \input{Mesh_tab}
-  \end{tabular}
-  \caption{Mesh analysis results. All currents \textit{I} expressed in Ampère; all voltages \textit{V} expressed in Volt.}
-  \label{tab:op}
-\end{table}
-\end{comment}
 \FloatBarrier
 
-\subsection{Analysis using the node method}
-\begin{figure}[!htp] \centering
-\includegraphics[width=0.8\textwidth]{node.pdf}
-\caption{Circuit from the node method point of view}
-\label{fig3}
-\end{figure}
-\FloatBarrier
+\subsection{Simulating the operating point for $v_s(0)=0$}\label{sec2.2}
 
-The main use of the node analysis is identifying the voltage in every node of the circuit. The first step to do so is to define the ground, the one node that has zero potential ($V_0=0$). The second step is to number each other node, so that when we reference the voltage in the node $i$ we use the abbreviation $V_i$. We also use the notation $I_i$ to refer to the current flowing through the resistor $R_i$, with the exceptions of $I_c$ flowing through $R_6$ and $I_x$ flowing through the dependent voltage source. Applying KCL to every non-reference node, we are able to deduce the five equations below.
+In this part of the theoretical analysis, it is suggested that we turn the voltage source off and substitute the capacitor by a voltage source $V_x = V_6-V_8$, where $V_6$ and $V_8$ assume the values obtained in the previous procedure, noted in table \ref{tab3}. The main use of this is to calculate the equivalent resistance of the entire RC circuit $R_{eq}$ as well as the time constant $\tau$.
 
-\begin{align*}
-I_7&=I_C \\ 
-I_4&=I_1+I_C\\
-I_3+I_x&=I_4+I_5 \\
-I_b&=I_5+I_d \\
-I_1&=I_2+I_3
-\end{align*}
+\begin{equation} \label{eq3}
+\begin{split}
+-\frac{1}{R_1}V_1+\left(\frac{1}{R_1}+\frac{1}{R_2}+\frac{1}{R_3}\right)V_2-\frac{1}{R_2}V_3-\frac{1}{R_3}V_5&=0\\
+\left(K_b+\frac{1}{R_2}\right)V_2-\frac{1}{R_2}V_3-K_b V_5&=0\\
+\frac{1}{R_1}V_1-\frac{1}{R_1}V_2-\frac{1}{R_4}V_5-\frac{1}{R_6}V_7&=0\\
+V_6-V_8&=V_x\\
+\left(\frac{1}{R_6}+\frac{1}{R_7}\right)V_7-\frac{1}{R_7}V_8&=0\\
+V_1&=V_s \\
+V_5-\frac{K_d}{R_6}V_7-V_8&=0
+\end{split}
+\end{equation}
 
-By direct observation, we are also able to equate
-\begin{align*}
-V_1&=V_a \\
-V_c&=V_3-V_6
-\end{align*}
+As expected, the system of equations \ref{eq3} used in this section only varies from the one in \ref{eq2} by two equations, the third and the forth, which would require the value of $I_x$. Note that, since the voltage source is turned off, $V_s$ = 0.
+$I_x$ can be determined after computing the node voltages, using the relation
+\begin{equation}
+    I_x = K_b(V_2 - V_5) + \frac{V_6 - V_5}{R_5}
+\end{equation}
+Then, as per the suggestion, we calculate $R_{eq}$ = $\frac{V_x}{I_x}$. With the equivalent resistor determined, the time constant of the RC loop, $\tau$ = $R_{eq}$ $C$, is obtained.
 
-Note that, since $V_c$ is the voltage of the dependent voltage source, its value can be calculated by the subtraction of the voltages nodes $3$ and $6$, as stated in the second equation of the last system. To solve the seven equations and later on compute them into a matrix, we have to rewrite them using only $V_i$ as variables with $i=1,2,3,4,5,6,7$. It's important to point out that the current always flows from a higher potential to a lower one and, therefore, we can define the currents $I_c$, $I_b$ and $I_x$ as
-\begin{align*}
-I_c&=\frac{V_0-V_7}{R_6}=-\frac{V_7}{R_6}\\
-I_b&=K_bV_b=K_b(V_2-V_3)\\
-I_x&=I_7-I_d=\frac{V_7-V_6}{R_7}-I_d
-\end{align*}
-Logical substitutions lead us to the system of equations that is present below.\par
-
-$$
-\begin{cases}
-  V_1=V_a\\
-  V_3-V_6=-\frac{K_c}{R_6}V_7\\
-  \frac{V_7-V_6}{R_7}=-\frac{V_7}{R_6}\\
-  \frac{V_3}{R_4}=\frac{V_1-V_2}{R_1}-\frac{V_7}{R_6}\\
-  \frac{V_2-V_3}{R_3}+\frac{V_7-V_6}{R_7}-I_d=\frac{V_3}{R_4}+\frac{V_3-V_5}{R_5}\\
-  K_b(V_2-V_3)=\frac{V_3-V_5}{R_5}+I_d\\
-  \frac{V_1-V_2}{R_1}=\frac{V_2-V_3}{R_3}+\frac{V_2-V_4}{R_2}
-\end{cases}
-$$
+The results of this analysis are shown in the table below, including all node voltages, branch currents, the equivalent resistor and the time constant:
 
 \begin{table}[h]                             
 
@@ -120,16 +80,132 @@ $$
 \begin{tabular}{c|c}                    % lr = 2 col (esq/dir)
 \hline                                  % linha topo
 
-\textbf{Name}  & \textbf{Value [A or V]}\\     
+\textbf{Name}  & \textbf{Value [A, V, $\Omega$ or s]}\\     
 
 \hline                                % linha
-\input{Nodal_tab}
+\input{Nodal2_tab}
 \hline                                % linha final
 \end{tabular}   
-\caption{Nodal analysis results. All currents \textit{I} expressed in Ampère; all voltages \textit{V} expressed in Volt.}
-\label{tab_3}   
+
+
+\caption{Nodal analysis results. All currents \textit{I} expressed in Ampère; all voltages \textit{V} expressed in Volt; the resistance expressed in Ohm and $\tau$ in seconds }
+\label{tab3}   
 \end{table}                             
 \FloatBarrier
 
+
+
+
+
+\subsection{Natural Solution $v_{6n}(t)$}\label{sec2.3}
+
+Considering the time interval [0,20]ms it is possible to compute the behaviour of the voltage in node 6. For that was used the capacitor voltage $V_x$ for $t<0$, which served as the initial condition. We know from the theory classes that the natural solution of an RC loop is a negative exponential:
+\begin{equation}
+    v_n(t) = Ae^{-\frac{t}{\tau}}
+\end{equation}
+
+The time constant was obtained in section \ref{sec2.2}. As for the constant $A$, its value can be determined from the initial condition $v_{6n}(0)$ = $V_x$. That leaves us with the natural solution for the voltage in node 6:
+\begin{equation}
+    v_{6n}(t) = V_x e^{-\frac{t}{\tau}}
+\end{equation}
+
+The plot of this function is shown in figure \ref{fig2}.
+
+\begin{figure}[!htp] \centering
+\includegraphics[width=0.6\textwidth]{natural.eps}
+\caption{Natural solution $v_{6n}(t)$ in the interval [0,20]ms}
+\label{fig2}
+\end{figure}
+\FloatBarrier
+
+\subsection{Forced Solution $v_{6f}(t)$}\label{sec2.4}
+
+Considering the same interval [0,20]ms and $f=1 KHz$, we used the node method once again to determine the forced solution, this time substituting the capacitance $C$ with its impedance $Z_C$. It is important to note that for a capacitor this change relies on C $\mapsto \frac{1}{j \omega C}$. Knowing the frequency in hertz, we easily compute $\omega=2 \pi f$.
+
+The equations used in this section were similar to the equations shown before. Only a single equation was changed comparing to the system in section \ref{sec2.2}, the equation of node 6, resulting in the following system of equations in complex variables:
+\begin{equation} \label{eq4}
+\begin{split}
+-\frac{1}{R_1}V_1+\left(\frac{1}{R_1}+\frac{1}{R_2}+\frac{1}{R_3}\right)V_2-\frac{1}{R_2}V_3-\frac{1}{R_3}V_5&=0\\
+\left(K_b+\frac{1}{R_2}\right)V_2-\frac{1}{R_2}V_3-K_b V_5&=0\\
+\frac{1}{R_1}V_1-\frac{1}{R_1}V_2-\frac{1}{R_4}V_5-\frac{1}{R_6}V_7&=0\\
+K_bV_2 - (\frac{1}{R_5}+K_b)V_5 + (\frac{1}{R_5}+Z_C)V_6 - \frac{1}{Z_C}&=0\\
+\left(\frac{1}{R_6}+\frac{1}{R_7}\right)V_7-\frac{1}{R_7}V_8&=0\\
+V_1&=v_s \\
+V_5-\frac{K_d}{R_6}V_7-V_8&=0
+\end{split}
+\end{equation}
+
+After solving the system (which results in a complex time function for each node), we take the imaginary part of $v_{6f}$ and plot the corresponding sinusoidal function. While normally we would take the real part (a cosine), in this particular case, as the voltage source is a sine function, we must take the imaginary part instead. The values of the complex amplitudes of each node were also determined and are printed in table \ref{tab4}.
+
+\begin{figure}[!htp] \centering
+\includegraphics[width=0.6\textwidth]{forced.eps}
+\caption{Forced solution $v_{6f}(t)$ in the interval [0,20]ms}
+\label{fig3}
+\end{figure}
+\FloatBarrier
+
+\begin{table}[h]                             
+\centering                                  % para centr. tabela
+\def\arraystretch{1.2}                       % esp. entre linhas
+\begin{tabular}{c|c}                    % lr = 2 col (esq/dir)
+\hline                                  % linha topo
+
+\textbf{Name}  & \textbf{Value [V]}\\     
+
+\hline                                % linha
+\input{Nodal4_tab}
+\hline                                % linha final
+\end{tabular}   
+
+\caption{Complex amplitude of each node voltage.}
+\label{tab4}   
+\end{table}                             
+\FloatBarrier
+
+\subsection{Final Total Solution $v_6(t)$}\label{sec2.5}
+
+For $t$ $\in$ [0,20]ms, superimposing the natural and forced responses shown previously, the total solution $v_6$ can be obtained. The result is the sum of a negative exponential, which will approach zero as time passes, and a sinusoidal function, thus the solution will roughly resemble a negative exponential before stabilising as a sine function.  For $t$ $\in$ [-5,0]ms, the voltage source is constant (there is no voltage drop in the capacitor) and as such the graph is a horizontal line. The graph confirming this behaviour is plotted below.
+
+Figure \ref{fig4} represents the total solution $v_6$ in the two aforementioned time intervals, as well as voltage source $v_s$ for comparison.
+
+\begin{figure}[!htp] \centering
+\includegraphics[width=0.6\textwidth]{total.eps}
+\caption{Total solution $v_6(t)$ and $v_s(t$ in the interval [-5,20]ms}
+\label{fig4}
+\end{figure}
+\FloatBarrier
+
+\subsection{Frequency Responses: $v_s(f)$, $v_c(f)$ and $v_6(f)$}\label{sec2.6}
+
+The final point of this theoretical analysis was to determine the frequency responses of $v_c(f) = v_6(f) - v_8(f)$ and $v_6(f)$. For this purpose, the same system in section \ref{sec2.4} was used, with only the subtle change that $Z_C$ is now a function of frequency, $f$.
+
+After obtaining $v_6(f)$ and $v_8(f)$ it is possible to plot both the amplitude and phase of $v_c(f)$ and $v_6(f)$ and compare them with the voltage source $v_s$, effectively visualising the transfer function.
+
+The transfer function of an RC circuit is $\frac{1}{1+j\omega RC}$. After some mathematical manipulation we derive formulae for both the magnitude and the phase of the output:
+\begin{equation}
+    V = \sqrt{\frac{1}{1+\omega ^2 R^2C^2}}
+\end{equation}
+\begin{equation}
+    \phi = \arctan(-\omega RC)
+\end{equation}
+
+Taking the limit when $\omega$ approaches infinity, we see that the amplitude $V$ approaches 0 while the phase $\phi$ approaches -$\frac{\pi}{2}$.
+
+\begin{figure}[!htp] \centering
+\includegraphics[width=0.6\textwidth]{response.eps}
+\caption{Amplitude comparison for frequencies in the interval [$10^{-1}$,$10^6$]Hz.}
+\label{fig5}
+\end{figure}
+\FloatBarrier
+
+The complex amplitude is shown in decibel. For the voltage source the amplitude is 0, as could easily be concluded from the fact that its value is $log_{10}(1)$. $v_6(f)$ remains fairly constant throughout the range of frequencies studied, with only a slight change around 100Hz. However, at the same frequencies $v_c(f)$ suddenly plummets and keeps getting smaller at a linear rate. Remembering that the decibel is a logarithmic scale, and that $\lim_{x\to 0} log_{10}(x)$ is $-\infty$, this result can be understood from the amplitude formula derived from the transfer function.
+
+\begin{figure}[!htp] \centering
+\includegraphics[width=0.6\textwidth]{phase.eps}
+\caption{Phase comparison for frequencies in the interval [$10^{-1}$,$10^6$]Hz.}
+\label{fig6}
+\end{figure}
+\FloatBarrier
+The phase is shown in degrees. Once again, as expected, $v_s$ is a horizontal line at 0 degrees. As for $v_c$, the phase difference increases until around 1000Hz where it stays at -90 degrees, like the phase formula predicted for large enough $f$. The voltage in node 6, however, drops to -180 degrees instead of -90 due to the presence of dependent sources.
 
 
