@@ -31,7 +31,7 @@ The \emph{Ngspice} netlist is done according to the following "positive" and "ne
 \includegraphics[width=\textwidth]{t2NgSpice.pdf}
 \captionsetup{justification=centering, margin=2cm}
 \caption{T2 Circuit with "positive" and "negative" nodes associated to the passive elements}
-\label{fig:t2circuitNgSpice}
+\label{fig7}
 \end{figure}
 \FloatBarrier
 \vspace*{\stretch{3}}
@@ -49,12 +49,12 @@ The values obtained were the following:
  
 \begin{tabular}{c|c}
     \hline    
-    \textbf{Name} & \textbf{Value [A or V]} \\ \hline
+    \textbf{Name} & \textbf{Value [A, V or $\Omega$]} \\ \hline
     \input{op2_tab}
     \hline
   \end{tabular}
   \captionsetup{justification=centering, margin=2cm}
-  \caption{Operating point for $V_s=0$. Values obtained from the \emph{NgSpice} script. A variable preceded by @ is of type {\em current} and expressed in Ampere; other variables are of type {\it voltage} and expressed in Volt.}
+  \caption{Operating point for $V_s=0$. Values obtained from the \emph{NgSpice} script. A variable preceded by @ is of type {\em current} and expressed in Ampere; other variables are of type {\it voltage} and expressed in Volt and Req is of type {\it resistance} and expressed in Ohm.}
   \label{op:tab_5}
 \end{table}
 \FloatBarrier
@@ -72,12 +72,12 @@ In this section the natural response of the circuit is obtained and the result u
 \label{transv6}
 \end{figure}
 \FloatBarrier
-
+It is possible to see that the plot obtained is very similar to the one obtained in the theoretical analysis, in section \ref{sec2.3} Figure \ref{fig2}.
 \clearpage
 \subsection{Total response of the circuit}
 \label{sec:3.4}
 
-While in \ref{sec:3.3} the natural response of the circuit was obtained while defining $V_s$ a DC voltage equal to 0V, in this section $V_s$ is defined as a sinusoidal wave accordingly to \label{fig:t2circuitNgSpice}.
+While in \ref{sec:3.3} the natural response of the circuit was obtained while defining $V_s$ a DC voltage equal to 0V, in this section $V_s$ is defined as a sinusoidal wave accordingly to \ref{fig7}.
 Therefore, a transient analysis was executed in order to simulate the total response obtained in $V_6$ and the stimulus $V_s$. The plot obtained is shown in figure \ref{totalresponse}.
 
 \begin{figure}[!htp] \centering
@@ -88,10 +88,12 @@ Therefore, a transient analysis was executed in order to simulate the total resp
 \end{figure}
 \FloatBarrier
 
+\clearpage
+
 \subsection{Frequency response of the circuit}
 \label{sec:3.5}
 
-In this section, the frequency response for node $V_6$, voltage source $V_s$ and capacitor $V_c$ is simulated for a frequency range from 0.1Hz to 1MHz. The plot obtained from this analysis is shown in figure \ref{frequencyresponse}. The frequency is presented in logarithmic scale and the values of the magnitude is presented in decibel. 
+In this section, the frequency response for node $V_6$, voltage source $V_s$ and capacitor $V_c$ is simulated for a frequency range from 0.1Hz to 1MHz. The plot obtained from this analysis is shown in figure \ref{frequencyresponse}. The frequency is presented in logarithmic scale and the values of the magnitude are presented in decibel. 
 
 \begin{figure}[!htp] \centering
 \includegraphics[width=0.40\textwidth]{frequencyresponse.pdf}
@@ -100,6 +102,8 @@ In this section, the frequency response for node $V_6$, voltage source $V_s$ and
 \label{frequencyresponse}
 \end{figure}
 \FloatBarrier
+
+Comparing the plot obtained and the plot obtained from the theoretical analyis, Figure \ref{fig5} it is possible to see that both plots are identical.
 
 Furthermore, the phases for node $V_6$, voltage source $V_s$ and capacitor $V_c$ are also simulated and presented in the plot below, figure \ref{phase}. The values of the phases are presented in degrees and the frequency is also presented in logarithmic scale.
 
@@ -111,3 +115,4 @@ Furthermore, the phases for node $V_6$, voltage source $V_s$ and capacitor $V_c$
 \end{figure}
 \FloatBarrier
 
+The plot obtained for phases is also similar to the one obtained in the theoretical analysis, shown in Figure \ref{fig6}. Therefore, the reason for the changes in phases are the same that are presented in \ref{sec2.6}

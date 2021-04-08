@@ -3,7 +3,7 @@
 The RC circuit presented in Figure \ref{fig:t2circuit} has eight nodes, eleven branches, four elementary meshes and thirteen loops. It is going to be attributed zero potential to one of the nodes, which we will call  \textit{reference} or \textit{ground node}.
 Consequently, we will need seven node equations for each usage of the nodal method to get the voltages in the other nodes.
 
-\subsection{Simulating the operating point for $t<0$}\label{sec2.1}
+\subsection{Analysis for $t<0$}\label{sec2.1}
 
 The voltage function in the voltage source is given by $v_s=V_s u(-t)+sin(2\pi ft)u(t)$, where $V_s$ is a given constant. Considering $t<0$ for the substitution we obtain $v_s=V_s u(-t)$. Remembering that $u$ is a function defined by parts that assumes the value of $0$ for $t<0$ and $1$ for $t\geq 0$, we get $v_s(t)=V_s$. This means that the voltage in the voltage source is constant. 
 Given the relation 
@@ -45,9 +45,9 @@ V_5-\frac{K_d}{R_6}V_7-V_8&=0 \\
 \end{table}                             
 \FloatBarrier
 
-\subsection{Simulating the operating point for $v_s(0)=0$}\label{sec2.2}
+\subsection{Analysis for $v_s(0)=0$}\label{sec2.2}
 
-In this part of the theoretical analysis, it is suggested that we turn the voltage source off and substitute the capacitor by a voltage source $V_x = V_6-V_8$, where $V_6$ and $V_8$ assume the values obtained in the previous procedure, noted in table \ref{tab3}. The main use of this is to calculate the equivalent resistance of the entire RC circuit $R_{eq}$ as well as the time constant $\tau$.
+In this part of the theoretical analysis, it is suggested that we turn the voltage source off and substitute the capacitor by a voltage source $V_x = V_6-V_8$, where $V_6$ and $V_8$ assume the values obtained in the previous procedure, noted in table \ref{tab2}. The main use of this is to calculate the equivalent resistance of the entire RC circuit $R_{eq}$ as well as the time constant $\tau$.
 
 \begin{equation} \label{eq3}
 \begin{split}
