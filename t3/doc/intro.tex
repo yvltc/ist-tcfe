@@ -1,0 +1,36 @@
+\section{Introduction}
+\label{sec:introduction}
+
+% state the learning objective 
+The objective of this laboratory assignment is to simulate and study one circuit that converts AC current in DC current. The main goal was to achieve the best possible value for the merit of the circuit. This merit value depends on the cost of the components that we used, namely capacitors, diodes and resistors. The formula for the merit M is given by 
+\begin{equation}
+   M= \frac{1}{cost \cdot (ripple(v_o)+average (v_o-12)+ 10^{-6})}
+\end{equation}
+where cost = cost of (resistors + capacitors + diodes).
+
+The cost of one resistor is one monetary unit (MU) per kOhm; of one capacitor is 1 MU per $\mu$F and of one diode is 0.1 MU per diode. To obtain the best M value, we had to test and create the circuit that optimized M and minimized the value of the ripple, which is the difference between the maximum and minimum voltage values of the output voltage of the circuit. The circuit used is printed in Figure \ref{circuit}.
+
+\begin{figure}[!htp] \centering
+\includegraphics[width=0.7\textwidth]{t3.pdf}
+\caption{Circuit T3}
+\label{circuit}
+\end{figure}
+\FloatBarrier
+
+Given that the diodes are the cheapest components in this circuit it is not odd that they are the predominant component. We use n=19 diodes in series and four more integrated in the full wave bridge rectifier. The values of the components in circuit \ref{circuit} are in Table \ref{tab_valores}.
+\begin{table}[H]
+\centering
+    \begin{tabular}{c|c}
+      \textbf{Name} & Value\\
+      \hline
+      \textbf{V1} & 180 V\\
+      \textbf{R1} & 585 k$\Omega$\\
+      \textbf{R2} & 413.63 k$\Omega$\\
+      \textbf{C} & 585 $\mu$ F\\
+    \end{tabular}
+    \caption{Values for the components in the circuit.}
+ \label{tab_valores}
+\end{table}               
+\FloatBarrier
+
+The amplitude value of 180 V is the result of the n:1 transformer between the input 230 V and the envelope detector, with n $=$ $\frac{23}{18}$. 

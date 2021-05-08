@@ -2,18 +2,18 @@ close all
 clear all
 
 f = 50;
-A = 230;
-R1 = 700*10^3;
-R2 = 537.84*10^3;
-C = 700*10^(-6);
+A = 180;
+R1 = 585*10^3;
+R2 = 413.63*10^3;
+C = 585*10^(-6);
 w = 2*pi*f;
 n = 19;
 VON = 12/19;
-miu = 1;
+eta = 1;
 VT = 26*10^(-3);
 IS = 10^(-14);
 
-t=linspace(0, 200e-3, 20000);
+t=linspace(0, 200e-3, 30000);
 vS = A*cos(w*t);
 
 tOFF = 1/w * atan(1/w/R1/C);
@@ -38,7 +38,7 @@ xlabel ("t[ms]")
 legend("envelope")
 print ("v_envelope.eps", "-depsc");
 
-rd = miu*VT/(IS*e^(VON/(miu*VT)));
+rd = eta*VT/(IS*e^(VON/(eta*VT)));
 
 v_env = v_Env - mean(v_Env);
 
@@ -57,14 +57,15 @@ print ("v_output.eps", "-depsc");
 
 figure
 plot(t*1000, v_out - 12)
-title("Output voltage v_{out}(t) - AC component")
+title("Output voltage v_{out}(t)-12V")
 xlabel("t[ms]")
-legend("AC output")
-print ("v_output_ac.eps", "-depsc");
+legend("V_{out}-12V")
+print ("v_output_-12.eps", "-depsc");
 
 DC_output = mean(v_out)
 ripple = max(v_out) - min(v_out)
 cost = (R1+R2)*10^(-3)*1 + C*10^(6)*1 + (4+n)*0.1
+merit = 1/(cost*(ripple + abs(DC_output-12) + 10^(-6)))
 
 diary "results_tab.tex"
 diary on

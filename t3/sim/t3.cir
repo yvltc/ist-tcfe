@@ -4,7 +4,7 @@
 
 ******************************************
 * input voltage source
-vs 1 2 0 sin(0 230 50 0 0 90)
+vs 1 2 0 sin(0 180 50 0 0 90)
 
 
 *Envelope detector using a full wave circuit
@@ -13,11 +13,11 @@ D1 1 3 Default
 D2 2 3 Default
 D3 0 1 Default
 D4 0 2 Default
-R1 3 0 700k
-C 3 0 700u
+R1 3 0 585k
+C 3 0 585u
 
 *Voltage regulator*
-R2 3 4 537.84k
+R2 3 4 413.63k
 D5 4 0 Default1 
 
 
@@ -29,7 +29,7 @@ D5 4 0 Default1
 .control
 
 *makes plots in color
-set hcopypscolor=0
+set hcopypscolor=1
 set color0=white
 set color1=black
 set color2=red
@@ -70,29 +70,24 @@ print v0_REGavg v0_REGmax v0_REGmin v0_REGripple
 
 *Plots
 
-let Vi = v(1)-v(2)
-
-plot Vi
-hardcopy Vi.ps Vi
-
 plot v(3)
-hardcopy V_ENV.ps v(3)
+hardcopy V_ENV.eps v(3)
 
 plot v(4)
-hardcopy V_REG.ps v(4)
+hardcopy V_REG.eps v(4)
 
 plot v(4)-12
-hardcopy v_out-12.ps v(4)-12
+hardcopy v_out-12.eps v(4)-12
 
-let cost = ((4+19)*0.1 + 1237.84 + 700)
+let cost = ((4+19)*0.1 + 998.63 + 585)
 let merit = (1/(cost * (v0_REGripple + abs(v0_REGavg-12) + 1/1000000)))
 print cost merit
 
-let Voltage_Deviation = v0_REGavg-12
-let Voltage_Ripple = v0_REGripple
+let VoltageDeviation = v0_REGavg-12
+let VoltageRipple = v0_REGripple
 
 echo  "op_TAB"
-print Voltage_Deviation Voltage_Ripple cost merit
+print VoltageDeviation VoltageRipple cost merit
 echo  "op_END"
 
 quit

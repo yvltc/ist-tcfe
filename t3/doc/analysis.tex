@@ -1,0 +1,127 @@
+\section{Analysis}
+\label{sec:analysis}
+\subsection{Theoretical explanation}
+This AC/DC converter has two parts: an envelope detector and a voltage regulator.
+The full-wave bridge rectifier, which is a part of the envelope detector, transforms an AC signal in its absolute value. This part of the converter includes a capacitor, a resistor and four diodes, disposed in a way so that two of them are reverse biased and the other two are forward biased. This way, the sinusoidal signal imposed by the transformer will be transformed in a signal whose waveform is similar with the topography of mountains and valleys. Since the four diodes are disposed in a closed loop, oriented by pairs, only two diodes will work during the same cycle. 
+
+With the addition of the smoothing capacitor, we can improve the average DC output of the full wave bridge rectifier circuit. The diodes will turn off at $t_{OFF}$, turning the circuit into a simple circuit of a resistor and a capacitor in parallel. Thus we can compute this time instant, which after algebraic manipulation gives:
+
+\begin{equation}
+    t_{OFF} = \frac{1}{\omega} \arctan(\frac{1}{\omega RC})
+\end{equation}
+
+So for $t$ $>$ $t_{OFF}$ the output voltage of the envelope detector is given by the expression
+
+\begin{equation}
+    v_o(t) = A\cos(\omega t_{OFF}) e^{-\frac{t-t_{OFF}}{RC}}
+\end{equation}
+
+What this essentially means is that the output voltage of the envelope detector will follow the cosine up to a point where it would start to drop significantly (as the derivative gets more and more negative) and then follow an exponential function with a smaller drop, improving the output DC voltage as desired.
+
+As for the voltage regulator, it is comprised of a resistor $R_2$ in a series with 19 diodes. This circuit element attenuates oscillations in the input signal (which is the output signal of the envelope detector) without frequency dependence. The final output circuit, $v_O$, is made of a DC and an AC component, but, ideally, the AC component should be zero. So the procedure is to choose $R_2$ much bigger than the diodes' incremental resistances, which will reduce the amplitude of the AC component and thus the voltage ripple. The 19 diodes also guarantee that $V_O$, the DC component, is equal to 19$V_{ON}$. This way, a DC voltage output of 12V is achieved.
+
+
+
+\subsection{Comparing the theoretical and the simulated results}
+
+\begin{table}[htp]
+\parbox{.5\linewidth}{
+\centering                
+\def\arraystretch{1}        % esp. entre linhas
+
+\begin{tabular}{c|c}        % lr = 2 col (esq/dir)
+\hline                      % linha topo
+
+\textbf{Name}  & \textbf{Value}\\     
+\hline                      % linha
+\input{results_tab}
+\hline                      % linha final
+\end{tabular}
+\captionsetup{justification=justified, margin=0.5cm} 
+\caption{Theoretical Results: voltages in V and cost in MU.}
+\label{tab7}
+}
+\hfill
+\parbox{.5\linewidth}{
+\centering
+\def\arraystretch{1}
+
+\begin{tabular}{c|c}
+\hline    
+\textbf{Name} & \textbf{Value} \\ \hline
+\input{op_tab}
+\hline
+\end{tabular}
+\captionsetup{justification=justified, margin=0.5cm} 
+\caption{Simulated Results: voltages in V and cost in MU.}
+\label{tab8}
+}
+\end{table}
+\FloatBarrier
+
+Right from the beginning it is clear that the values for the voltage deviation and cost are equivalent for the Octave \cite{bib:octave} and for the simulated results, which is not surprising given the fact that the cost does not depend on the simulation. However, the $V_{ripple}$ of the simulated results differs from the theoretical $V_{ripple}$ value by a few decimals.
+
+The figure of merit obtained from a cost of 1585.93 MU and the simulation results was 20.3.
+
+The voltage drop of a diode was set as 12/19 in the Octave script so as to get a final DC output of 12V like intended. However, the NgSpice \cite{bib:ngspice} diode model uses a different value for $V_{ON}$, determined experimentally to be around 0.63V. 
+
+In the following graphs are plotted the voltages of the envolpe detector, the output voltage and a slightly modified plot of the output voltage ($V_{output}-12$). It is important to notice that the time interval of each one of these plots is 200 ms because we have to plot 10 periods for a given a frequency of 50 Hz. 
+\begin{figure}[H]
+\centering
+\begin{subfigure}{0.5\textwidth}
+  \centering
+  \includegraphics[width=1.1\linewidth]{v_envelope.eps}
+  \caption{Octave plot}
+  \label{fig:sub1}
+\end{subfigure}%
+\begin{subfigure}{.5\textwidth}
+  \centering
+  \includegraphics[width=0.9\linewidth]{v_env.eps}
+  \caption{NgSpice plot}
+  \label{fig:sub2}
+\end{subfigure}
+\caption{$V_{envelope}$ as a function of $t$}
+\label{fig:test1}
+\end{figure}
+The voltage envelope function plot represents the voltage that comes out of the envelope detector. The Octave plot gives us the maximum peaks of this voltage at 180 V, whereas the NgSpice peaks only achieve 178.491 V.
+
+
+\begin{figure}[H]
+\centering
+\begin{subfigure}{.5\textwidth}
+  \centering
+  \includegraphics[width=1.1\linewidth]{v_output.eps}
+  \caption{Octave plot}
+  \label{fig:sub3}
+\end{subfigure}%
+\begin{subfigure}{.5\textwidth}
+  \centering
+  \includegraphics[width=0.9\linewidth]{v_reg.eps}
+  \caption{NgSpice plot}
+  \label{fig:sub4}
+\end{subfigure}
+\caption{$V_{outup}$ as a function of $t$}
+\label{fig:test2}
+\end{figure}
+These plots represent the voltage that comes out the entire circuit, after getting through the voltage regulator. Both the theoretical and the simulation plots show values around the desired 12 V.
+
+\begin{figure}[H]
+\centering
+\begin{subfigure}{.5\textwidth}
+  \centering
+  \includegraphics[width=1.1\linewidth]{v_output_-12.eps}
+  \caption{Octave plot}
+  \label{fig:sub5}
+\end{subfigure}%
+\begin{subfigure}{.5\textwidth}
+  \centering
+  \includegraphics[width=0.9\linewidth]{v_out-12.eps}
+  \caption{NgSpice plot}
+  \label{fig:sub6}
+\end{subfigure}
+\caption{$V_{output}$-12 as a function of $t$}
+\label{fig:test3}
+\end{figure}
+
+It should be noted that the NgSpice transient analysis are made between 400ms and 600ms, due to the fact that at 400ms the capacitor will certainly be fully charged. Furthermore, the model that NgSpice uses to define diodes also integrates capacitors. This way at 400ms it is guaranteed that both the capacitor and the diodes will not enter in conflict with the results desired. 
+
