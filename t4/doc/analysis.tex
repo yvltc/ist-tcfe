@@ -74,6 +74,8 @@ The values of impedance presented in table \ref{tab_output} were calculated with
     Z2_O=\frac{1}{g_{\pi}+g_{E}+g_{o}+g_{m}}
 \end{equation}
 
+Note that $r_o$, $r_\pi$ and $r_m$ and their equivalent conductances are transistor resistors.
+
 \subsection{Comparing the theoretical and the simulated results}
 
 \begin{table}[H]
@@ -110,7 +112,7 @@ The values of impedance presented in table \ref{tab_output} were calculated with
 }
 \end{table}
 
-Right from the beginning it is clear that the values of $V_{O1}$, $V_{CE}$, $V_{EC}$ and $V_{O2}$ are higher (VERIFICAR ISTO) than the simulated results. The other results for the variables $V_{BEON}$/$v_{be}$ and $V_{EBON}$/$v_{eb}$ differ a few decimals between the simulated and theoretical results. The NgSpice \cite{bib:ngspice} models from which the entire NgSpice simulation was made are more complex and more precise than the calculations made in Octave \cite{bib:octave}, given that were made several approximations along the entire process.
+Right from the beginning it is clear that the values of $V_{O1}$, $V_{CE}$, $V_{EC}$ and $V_{O2}$ are lower than the simulated results. The other results for the variables $V_{BEON}$/$v_{be}$ and $V_{EBON}$/$v_{eb}$ differ a few decimals between the simulated and theoretical results. The NgSpice \cite{bib:ngspice} models from which the entire NgSpice simulation was made are more complex and more precise than the calculations made in Octave \cite{bib:octave}, given that were made several approximations along the entire process.
 \begin{table}[H]
 \parbox{.5\linewidth}{
 \centering                
