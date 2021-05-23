@@ -153,11 +153,11 @@ M = abs(AV*bandwidth/(cost*lco));
 
 diary "total_tab.tex"
 diary on
-printf("$A$ & %f\n", AV);
+printf("$gain$ & %f\n", AV);
 printf("$Z_I$ & %f\n", ZI);
 printf("$Z_O$ & %f\n", ZO);
-printf("$Cost$ & %f\n", cost);
-printf("$M$ & %f\n", M);
+printf("$cost$ & %f\n", cost);
+printf("$merit$ & %f\n", M);
 printf("$f_{lower}$ & %f\n", lco);
 printf("$f_{upper}$ & %f\n", uco);
 printf("$bandwidth$ & %f\n", bandwidth);

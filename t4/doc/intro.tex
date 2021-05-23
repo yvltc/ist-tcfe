@@ -1,0 +1,35 @@
+\section{Introduction}
+\label{sec:introduction}
+
+% state the learning objective 
+The objective of this laboratory assignment is to simulate and study one circuit that amplifies an input audio signal. The main goal was to achieve the best possible value for the merit of the circuit. This merit value depends on the cost of the components that we used, namely capacitors, transistors and resistors. The formula for the merit M is given by 
+\begin{equation}
+   M= \frac{voltageGain \cdot bandwidth}{cost \cdot lco}
+\end{equation}
+where $cost$ = cost of (resistors + capacitors + transistors) and $lco$ is the lower cutoff frequency, while $bandwidth$ is the difference between the upper and the lower cutoff frequencies.
+
+The cost of one resistor is one monetary unit (MU) per kOhm; of one capacitor is 1 MU per $\mu$F and of one transistor is 0.1 MU. To obtain the best M value, we had to test and create the circuit that optimized M, increasing the voltage gain and bandwidth while decreasing $cost$ and the lower cutoff frequency. The circuit used is printed in Figure \ref{circuit}.
+
+\begin{figure}[H] \centering
+\includegraphics[width=0.7\textwidth]{t4.pdf} % mudar para t4
+\caption{Circuit T4}
+\label{circuit}
+\end{figure}
+
+The total cost of transistors was fixed at 0.2 MU, given that the circuit required the use of two transistors, one for the gain stage and one for the output stage. In addition, there are seven resistors (six are shown in the table, the seventh resistors is the 8$\Omega$ load) and three capacitors. The values of the components in circuit \ref{circuit} are in Table \ref{tab_valores}.
+\begin{table}[H]
+\centering
+    \begin{tabular}{c|c}        % lr = 2 col (esq/dir)
+\hline                      % linha topo
+
+\textbf{Name}  & \textbf{Value}\\     
+\hline                      % linha
+\input{values_tab}
+\hline                      % linha final
+\end{tabular}
+    \caption{Values for the components in the circuit. Resistances in $\Omega$, capacitances in F.}
+ \label{tab_valores}
+\end{table}               
+\FloatBarrier
+
+ 

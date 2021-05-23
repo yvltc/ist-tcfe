@@ -10,7 +10,7 @@ all: ngspice_z_out.log ngspice.log
 	$(eval NGSTABS=$(shell grep _TAB $(word 2,$^) | sed 's/_TAB//g' | sed ':a;N;$!ba;s/\n/ /g'))
 	$(foreach i, $(NGSTABS), sed -n '/^$i_TAB/,/^$i_END/{p;/^$i_END/q}' $(word 2,$^) | grep -v $i_TAB | grep -v $i_END | grep -v '#' | sed 's/\=/\&/g' | sed 's/$$/\\\\ \\hline/g' > $i_tab.tex;)
 	
-	sed -i '1 r output_impedance_tab.tex' data_tab.tex
+	sed -i '2 r output_impedance_tab.tex' data_tab.tex
 	mv *.eps *.tex ../doc
 	
 ngspice_z_out.log: t4_out_impedance.cir

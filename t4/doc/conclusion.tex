@@ -1,0 +1,8 @@
+\section{Conclusion}
+\label{sec:conclusion}
+
+We conclude that the values obtained from both the theoretical and the simulation analysis are, in general, similar, but differ due to the approximations, namely those made for the bypass capacitor, since we assume a short circuit for the bypass which may lead to incorrect results. This approximation was suggested in the theoretical classes. Furthermore, the voltage drop of the transistors was assumed to be 0.7 V for the \emph{Octave} analysis whereas in the \emph{NgSpice} the result is shown in Table \ref{tab8}.
+
+In addition, when comparing the plots obtained from \emph{Octave}, Figure \ref{fig:sub1}, and \emph{NgSpice}, Figure \ref{fig:sub2}, it is possible to see that the maximum values of the voltage differ. This is due to the difference between the gain from \emph{Octave} and \emph{NgSpice}. Furthermore, we can see that the plot from \emph{NgSpice} presents a voltage drop and the one from \emph{Octave} doesn't. This happens because in \emph{Octave} the Upper Cutoff Frequency is not considered, given that it is dependent on the transistors and its analysis is complex procedure, whereas in \emph{NgSpice} it is considered. Therefore, when the Upper Cutoff Frequency is reached the voltage should start dropping.
+
+To conclude, the values obtained were satisfactory although there were a few discrepancies in the values of the gain and merit.

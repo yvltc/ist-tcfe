@@ -1,24 +1,24 @@
 options savecurrents
 
-.param Rin_value=0.1k
-.param R1_value=100k
-.param R2_value=40k
-.param Rc_value=0.53k
-.param Re_value=0.1k
-.param Rout_value=0.16k
-.param Ci_value=730u
-.param Cb_value=5010u
-.param Co_value=2950u
+.param Rin=0.1k
+.param R1=100k
+.param R2=40k
+.param Rc=0.53k
+.param Re=0.1k
+.param Rout=0.16k
+.param Ci=730u
+.param Cb=5010u
+.param Co=2950u
 
-.csparam Rin_value={Rin_value}
-.csparam R1_value={R1_value}
-.csparam R2_value={R2_value}
-.csparam Rc_value={Rc_value}
-.csparam Re_value={Re_value}
-.csparam Rout_value={Rout_value}
-.csparam Ci_value={Ci_value}
-.csparam Cb_value={Cb_value}
-.csparam Co_value={Co_value}
+.csparam Rin={Rin}
+.csparam R1={R1}
+.csparam R2={R2}
+.csparam Rc={Rc}
+.csparam Re={Re}
+.csparam Rout={Rout}
+.csparam Ci={Ci}
+.csparam Cb={Cb}
+.csparam Co={Co}
 
 
 * PHILIPS BJT'S
@@ -27,30 +27,30 @@ options savecurrents
 
 Vcc vcc 0 12.0
 Vin in 0 0 ac 1.0 sin(0 10m 1k)
-Rin in in2 {Rin_value}
+Rin in in2 {Rin}
 
 * input coupling capacitor
-Ci in2 base {Ci_value}
+Ci in2 base {Ci}
 
 * bias circuit
-R1 vcc base {R1_value}
-R2 base 0 {R2_value}
+R1 vcc base {R1}
+R2 base 0 {R2}
 
 * gain stage
 Q1 coll base emit BC547A
-Rc vcc coll {Rc_value}
-Re emit 0 {Re_value}
+Rc vcc coll {Rc}
+Re emit 0 {Re}
 
 * bypass capacitor
-Cb emit 0 {Cb_value}
+Cb emit 0 {Cb}
 
 
 * output stage
 Q2 0 coll emit2 BC557A
-Rout emit2 vcc {Rout_value}
+Rout emit2 vcc {Rout}
 
 * output coupling capacitor
-Co emit2 out {Co_value}
+Co emit2 out {Co}
 
 * load
 RL out 0 8
@@ -79,7 +79,7 @@ let veb = v(emit2)-v(coll)
 let vo2 = v(emit2)
 
 echo "OPngspice_TAB"
-print vce vbe vo1 vec veb vo2
+print vbe vo1 vce veb vo2 vec
 echo "OPngspice_END"
 
  
@@ -107,24 +107,24 @@ let maximum = vecmax(vdb(out))-3
 meas ac lcofreq WHEN vdb(out) = maximum RISE = 1
 meas ac ucofreq WHEN vdb(out) = maximum CROSS = LAST
 
-let bandwith = ucofreq-lcofreq 
+let bandwidth = ucofreq-lcofreq 
 
 *input impedance in ohm
-let Z_in1 = v(in2)[40]/i(Vin)[40]/(-1)
+let Zin1 = v(in2)[40]/i(Vin)[40]/(-1)
 *print all
 
 
 *Cost and Merit
-let cost = (Rin_value + R1_value + R2_value + Re_value + Rc_value + Rout_value + 8)/1000 + (Ci_value + Cb_value + Co_value)*10^6 + 0.1*2
-let merit = abs(gain)*bandwith/(cost*lcofreq)
+let cost = (Rin + R1 + R2 + Re + Rc + Rout + 8)/1000 + (Ci + Cb + Co)*10^6 + 0.1*2
+let merit = abs(gain)*bandwidth/(cost*lcofreq)
 
 echo "data_TAB"
-print abs(Z_in1) abs(gain) cost merit
+print abs(gain) abs(Zin1) cost merit lcofreq ucofreq bandwidth
 echo "data_END"
 
-echo "datafreq_TAB"
-print lcofreq ucofreq bandwith
-echo "datafreq_END"
+echo "values_TAB"
+print Rin R1 R2 Rc Re Rout Ci Cb Co
+echo "values_END"
 
 quit
 .endc

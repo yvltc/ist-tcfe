@@ -1,0 +1,177 @@
+\section{Analysis}
+\label{sec:analysis}
+\subsection{Theoretical explanation}
+
+The circuit is divided in two different stages, a gain stage with a NPN transistor and an output stage with a PNP transistor. Thus, for the gain stage's operating point (OP), the voltage drop between the collecter and the emitter, $V_{CE}$, will have to be higher than the voltage drop between the base and the emitter, $V_{BEON}$, to confirm that it operates in the forward active region (FAR). Similarly, in the output stage, $V_{EC}$ will have to be bigger than $V_{EBON}$, since this is a PNP transistor. For a silicon transistor, this voltage drop is approximately 0.7 V.
+
+For the NPN transistor (the equation is similar for the PNP transistor, but with emitter-collecter and emitter-base instead):
+\begin{equation}
+    V_{CE} = V_O - V_E > V_{BEON}
+\end{equation}
+where $V_O$ (output voltage of the gain stage) and $V_E$ (voltage in the emitter node) can be determined through mesh analysis as seen in the theoretical classes.
+
+In order to ensure FAR, a bias circuit composed of two resistors $R_1$ and $R_2$ and a supply voltage $V_{CC}$ needs to be added to the circuit, like seen in the circuit drawing, because the input voltage has 0V DC value and so cannot forwardly bias the junction. A coupling capacitor $C_I$ is also added to block the 0V DC component of the input voltage. Similarly, another coupling capacitor $C_O$ needs to be added between the output stage and load. 
+
+The main goal of the gain stage, as the name indicates, is to get a high voltage gain and a high input impedance so as to not degrade the input signal.  A third capacitor needs to be added to the gain stage (in parallel with resistor $R_E$) to compensate the disadvantage of this resistor: while it stabilises temperature effect, it lowers the gain. The bypass capacitor $C_B$ acts as an open-circuit for low frequencies (DC) and a short-circuit for medium to high frequencies (AC). In DC, temperature stabilisation is more important; in AC, gain is more important. This capacitor then solves the problem of the lower gain caused by the resistor. However, this stage comes with a cost. The output impedance of the gain stage is high, which is incompatible with the load (speaker).
+
+The output stage fixes the high output impedance of the gain stage by having a high input impedance and a low output impedance compatible with the load. Since the voltage has already been amplified, the gain of the output stage should, ideally, be 1.
+
+\begin{table}[H]
+\centering
+    \begin{tabular}{c|c}        % lr = 2 col (esq/dir)
+\hline                      % linha topo
+
+\textbf{Name}  & \textbf{Value}\\     
+\hline                      % linha
+\input{gain_stage_tab}
+\hline                      % linha final
+\end{tabular}
+    \caption{Gain Stage.}
+ \label{tab_gain}
+\end{table} 
+
+
+
+The gain stage formula used to compute the value of the voltage gain in the gain stage is:
+\begin{equation}
+    G_1=\frac{v_o}{v_i}= \frac{R_1//R_2}{R_{in}+R_1//R_2}R_C\frac{R_E-g_m r_\pi r_o}{(r_o+R_C+R_E)((R_1//R_2)//R_{in}+r_\pi+R_E)+g_m R_E r_\pi r_o-R_E^2}
+\end{equation}
+
+The values of impedance presented in table \ref{tab_gain} were calculated with
+
+\begin{equation}
+    Z1_I=\frac{1}{\frac{1}{R_B}+\frac{1}{\frac{(r_{o}+R_{C}+R_{E})(r_{\pi}+R_{E})+g_{m} R_{E} r_{o} r_{\pi} - R_{E}^2}{r_{o}+R_{C}+R_{E}}}}
+\end{equation}
+\begin{equation}
+    Z1_O=\frac{1}{\frac{1}{r_{o1}}+\frac{1}{R_{C1}}}
+\end{equation}
+
+
+\begin{table}[H]
+\centering
+    \begin{tabular}{c|c}        % lr = 2 col (esq/dir)
+\hline                      % linha topo
+
+\textbf{Name}  & \textbf{Value}\\     
+\hline                      % linha
+\input{output_stage_tab}
+\hline                      % linha final
+\end{tabular}
+    \caption{Output Stage.}
+ \label{tab_output}
+\end{table} 
+The output gain formula used to compute these values is given by:
+\begin{equation}
+    G_1=\frac{v_o}{v_i}=\frac{g_m}{g_m+g_E+g_o+g_\pi}
+\end{equation}
+where $g_m$, $g_\pi$, $g_o$ and $g_E$ are conductances.
+
+The values of impedance presented in table \ref{tab_output} were calculated with
+\begin{equation}
+    Z2_I=\frac{g_{\pi}+g_{E}+g_{o}+g_{m}}{g_{\pi}(g_{\pi}+g_{E}+g_{o})}
+\end{equation}
+\begin{equation}
+    Z2_O=\frac{1}{g_{\pi}+g_{E}+g_{o}+g_{m}}
+\end{equation}
+
+\subsection{Comparing the theoretical and the simulated results}
+
+\begin{table}[H]
+\parbox{.5\linewidth}{
+\centering                
+\def\arraystretch{1}        % esp. entre linhas
+
+\begin{tabular}{c|c}        % lr = 2 col (esq/dir)
+\hline                      % linha topo
+
+\textbf{Name}  & \textbf{Value}\\     
+\hline                      % linha
+\input{op_tab}
+\hline                      % linha final
+\end{tabular}
+\captionsetup{justification=justified, margin=0.5cm} 
+\caption{Theoretical Operating Point: voltages in V.}
+\label{tab7}
+}
+\hfill
+\parbox{.5\linewidth}{
+\centering
+\def\arraystretch{1}
+
+\begin{tabular}{c|c}
+\hline    
+\textbf{Name} & \textbf{Value} \\ \hline
+\input{OPngspice_tab}
+\hline
+\end{tabular}
+\captionsetup{justification=justified, margin=0.5cm} 
+\caption{Simulated Operating Point: voltages in V.}
+\label{tab8}
+}
+\end{table}
+
+Right from the beginning it is clear that the values of $V_{O1}$, $V_{CE}$, $V_{EC}$ and $V_{O2}$ are higher (VERIFICAR ISTO) than the simulated results. The other results for the variables $V_{BEON}$/$v_{be}$ and $V_{EBON}$/$v_{eb}$ differ a few decimals between the simulated and theoretical results. The NgSpice \cite{bib:ngspice} models from which the entire NgSpice simulation was made are more complex and more precise than the calculations made in Octave \cite{bib:octave}, given that were made several approximations along the entire process.
+\begin{table}[H]
+\parbox{.5\linewidth}{
+\centering                
+\def\arraystretch{1}        % esp. entre linhas
+
+\begin{tabular}{c|c}        % lr = 2 col (esq/dir)
+\hline                      % linha topo
+
+\textbf{Name}  & \textbf{Value}\\     
+\hline                      % linha
+\input{total_tab}
+\hline                      % linha final
+\end{tabular}
+\captionsetup{justification=justified, margin=0.5cm} 
+\caption{Theoretical results. Impedances in $\Omega$, cost in MU, frequencies in Hz.}
+\label{tab9}
+}
+\hfill
+\parbox{.5\linewidth}{
+\centering
+\def\arraystretch{1}
+
+\begin{tabular}{c|c}
+\hline    
+\textbf{Name} & \textbf{Value} \\ \hline
+\input{data_tab}
+\hline
+\end{tabular}
+\captionsetup{justification=justified, margin=0.5cm} 
+\caption{Simulation results. Impedances in $\Omega$, cost in MU, frequencies in Hz.}
+\label{tab10}
+}
+\end{table}
+
+In order to simulate the output impedance of the circuit, a different circuit was used as it is shown in \ref{z_out}
+ 
+\begin{figure}[H] \centering
+\includegraphics[width=0.7\textwidth]{t4_zout.pdf}
+\caption{Circuit used to calculate the output impedance}
+\label{z_out}
+\end{figure}
+
+
+Furthermore, the following plots were obtained from \emph{Octave} and \emph{NgSpice}:
+\begin{figure}[H]
+\centering
+\begin{subfigure}{0.5\textwidth}
+  \centering
+  \includegraphics[width=1.1\linewidth]{gain_dB.eps}
+  \caption{Octave plot}
+  \label{fig:sub1}
+\end{subfigure}%
+\begin{subfigure}{.5\textwidth}
+  \centering
+  \includegraphics[width=0.9\linewidth]{vo2f.eps}
+  \caption{NgSpice plot}
+  \label{fig:sub2}
+\end{subfigure}
+\caption{$V_{gain}$ as a function of $f$ (dB)}
+\label{fig:test}
+\end{figure}
+
+It is possible to see that both plots are very similar, with the exception that the voltage on the \emph{NgSpice} plot starts dropping at a higher frequency and on \emph{Octave} plot it does not drop. This happens because in \emph{Octave} the Upper Cutoff Frequency is not considered, given that it is dependent on the transistors and its analysis is complex procedure, whereas in \emph{NgSpice} it is considered. Therefore, when the Upper Cutoff Frequency is reached the voltage should start dropping.
+
