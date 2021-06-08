@@ -1,0 +1,38 @@
+\section{Introduction}
+\label{sec:introduction}
+
+% state the learning objective 
+The objective of this laboratory assignment is to simulate and study a circuit that amplifies a given range of frequencies (a band-pass filter, BDF). The main goal was to achieve the best possible value for the merit of the circuit. This merit value depends on the cost of the components that we used, namely capacitors, transistors and resistors. The formula for the merit M is given by 
+\begin{equation}
+   M= \frac{1}{cost (G_{dev} + freq_{dev} + 10^{-6})}
+\end{equation}
+where cost = cost of (resistors + capacitors + transistors), which includes the cost of the operational amplifier, in this case the 741 OP-AMP model, $G_{dev}$ is the (linear) gain deviation at the central frequency and $freq_{dev}$ is the central frequency deviation.
+
+
+The cost of one resistor is one monetary unit (MU) per k$\Omega$; of one capacitor is 1 MU per $\mu$F and of one transistor is 0.1 MU. Although the objective was to increase the merit value obtained, the assignment also imposed restrictions on the type and amount of components to use. Thus, unlike previous assignments were it was possible to test effectively infinite combinations of components so as too achieve the best merit possible, that was not possible in this particular case. The main focus was keeping the frequency and gain deviation as low as possible. Since the cost of the OP-AMP was fixed and significantly higher than the cost of the rest of the circuit, as can be seen from its internal structure, keeping the cost low was not as significant. The circuit used is printed in Figure \ref{circuit}.
+
+\begin{figure}[H] \centering
+\includegraphics[width=0.7\textwidth]{t5.pdf} 
+\caption{Circuit T5}
+\label{circuit}
+\end{figure}
+
+The total cost of the OP-AMP was determined to be $1.332\times 10^4$ MU, which was a lot higher than the cost of the other components, four resistors and two capacitors. The values of the components in circuit \ref{circuit} are in Table \ref{tab_valores}.
+\begin{table}[H]
+\centering
+    \begin{tabular}{c|c}        % lr = 2 col (esq/dir)
+\hline                      % linha topo
+
+\textbf{Name}  & \textbf{Value}\\     
+\hline                      % linha
+\input{components_tab}
+\hline                      % linha final
+\end{tabular}
+    \caption{Values for the components in the circuit. Resistances in $\Omega$, capacitances in F.}
+ \label{tab_valores}
+\end{table}  
+
+The assignment imposed a restriction of at most three 1k$\Omega$, 10k$\Omega$ and 100k$\Omega$ resistors and at most three 220nF and three 1$\mu$F capacitors. Hence, $R_3$ is a series of three 100k$\Omega$, one 10k$\Omega$ and two parallel 10k$\Omega$ resistors and $C_1$ a series of two 220nF capacitors.
+
+
+ 

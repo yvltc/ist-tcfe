@@ -1,0 +1,205 @@
+\section{Analysis}
+\label{sec:analysis}
+\subsection{Theoretical explanation}
+
+The circuit fulfills two main roles. The first is to only let a particular range of frequencies through (a \emph{bandwidth}) - this type of circuit is known as a band-pass filter and has been thoroughly studied previously. The other role is to amplify the input signal. The component that allows this kind of behaviour is called the operational amplifier. Combining these two roles we get a circuit that amplifies a given set of frequencies.
+
+Since this is a BDF, there are two cutoff frequencies (gain 3dB below maximum gain), one below the central frequency (lower cutoff - radian - frequency, $\omega_L$) and one above (higher cutoff - radian - frequency, $\omega_H$). These frequencies can be determined (with the particular combination of components chosen) according to two very similar formulae:
+\begin{equation}
+    \omega_H = \frac{1}{R_1 C_1}
+\end{equation}
+\begin{equation}
+    \omega_L = \frac{1}{R_2 C_2}
+\end{equation}
+
+The central frequency can be deduced from these two cutoff frequencies:
+
+\begin{equation}
+    \omega_0 = \sqrt{\omega_L \omega_H}
+\end{equation}
+
+Note that these are \emph{angular} frequencies, the actual frequency is easy to compute knowing that $\omega = 2\pi f$.
+
+As for amplifying the signal, we need to study the transfer function of this circuit, given by equation \ref{transfer}, to compute its gain, which should be close to 40 dB for the purpose of this assignment.
+
+\begin{equation}
+    T = \frac{R_1 C_1 s}{1+R_1 C_1 s} \cdot (1+\frac{R_3}{R_4}) \cdot \frac{1}{1+R_2 C_2 s}
+    \label{transfer}
+\end{equation}
+
+A plot of this transfer function should show the wanted gain near $f$=1kHz, the central frequency we want the circuit to operate in.
+
+Finally, we also need to compute the input and output impedances, given by the formulae:
+
+\begin{equation}
+    Z_{in} = \frac{1+j\omega R_1 C_1}{j\omega C_1}
+\label{z_in}
+\end{equation}
+\begin{equation}
+    Z_{out} = \frac{R_2}{1+j\omega R_2 C_2}
+\label{z_out}
+\end{equation}
+
+\subsection{Lab Experience}
+
+We used a breadboard to assemble the circuit with resistors, capacitors and the µA741 General-Purpose OP-AMP, that we later connected to the VCC and -VCC entries. We connected the breadboard circuit to an AC signal generator and we also used an oscilloscope to observe the wave functions in real time and retrieve the data needed, namely the output and input voltages. Following the equations outlined in the previous section, we could easily calculate the angular cutoff frequencies and the corresponding value of $R_2$.
+
+Therefore, given $f_0$=1 kHz and $w_0=2\pi f_0$, establishing that $R_1$=1 k$\Omega$ and $C_1=C_2$= 220 nF, we get that 
+\begin{enumerate}
+    \item $w_L=\frac{1}{R_1 C_1}$= 4545.455 $rad/s$
+    \item $w_0$= 6283.185 $rad/s$
+    \item $w_H=\frac{w_0^{2}}{w_l}$= 8685.251 $rad/s$
+    \item $R_2=\frac{1}{w_H C_2}$= 523.353 $\Omega$
+\end{enumerate}
+ 
+ We obviously could not simulate a resistor with value of exactly 523.353 $\Omega$, so we approximated this value to 500 $\Omega$ so that $R_2$ could be made by two parallel 1 k$\Omega$ resistors.\par
+ 
+ We calculated the critical resistance by $R_{limit}=\frac{1}{C w_0}$. This means that from $w_0$ on the resistance, in this case $R_2$, had to be lower than $R_{limit}$ and from 0 to $w_0$ the resistance $R_1$ had to be higher. In the lab, we used C=220nF, so that $R_{limit}$=723.43$\Omega$. These results are consistent with the ones that we found, since we established $R_1$=1k$\Omega$ ($>$ $R_{limit}$) and calculated $R_2$= 523.353 $\Omega$ ($<$ $R_{limit}$).
+ 
+ 
+\begin{figure}[H]
+\centering
+\begin{subfigure}{0.5\textwidth}
+  \centering
+  \includegraphics[width=1.1\linewidth]{t5_lab.pdf}
+  \caption{Circuit with the used values}
+  \label{fig_lab1}
+\end{subfigure}%
+\begin{subfigure}{.5\textwidth}
+  \centering
+  \includegraphics[width=0.9\linewidth]{esquema.pdf}
+  \caption{Band pass illustration}
+  \label{fig_lab2}
+\end{subfigure}
+\caption{Pre-circuit studies}
+\label{fig_lab}
+\end{figure}
+
+Now that we had $R_1$, $R_2$ and have $R_3$ fixed at 100 k$\Omega$, as suggested by the lab instructor, we had to obtain the best $R_4$ so that the gain would be 40 dB. Having started with $R_4$=1 k$\Omega$, we realized that the voltage gain could be improved by decreasing $R_4$,  lowering it a little bit more than half. We obtain 40,5 dB of gain with $R_4$=1 k$\Omega$ // 3 k$\Omega$ and 39,40074 dB of gain with $R_4$=1 k$\Omega$ // 4 k$\Omega$. The figure \ref{fig_lab3} shows the assembled circuit and the figure \ref{fig_lab4} shows a detail of the oscilloscope interface, where $v_i$=90 mV and $v_o$=9.4 V:
+\begin{enumerate}
+    \item $\frac{v_{output}}{v_{input}}=\frac{9.4 V}{90 mV}$= 104.(4)
+    \item $gain$ = $20 \log_{10} \frac{v_{output}}{v_{input}} \approx$ 40.4 dB
+\end{enumerate}
+
+\begin{figure}[H]
+\centering
+\begin{subfigure}{0.5\textwidth}
+  \centering
+  \includegraphics[width=0.9\linewidth]{circuito.pdf}
+  \caption{Assembled circuit}
+  \label{fig_lab3}
+\end{subfigure}%
+\begin{subfigure}{.5\textwidth}
+  \centering
+  \includegraphics[width=0.9\linewidth]{osciloscopio.pdf}
+  \caption{Oscilloscope data}
+  \label{fig_lab4}
+\end{subfigure}
+\caption{Details}
+\label{fig_lab}
+\end{figure}
+
+\subsection{Comparing the theoretical and the simulated results}
+
+In this study of the OP-AMP the results that are worthy of being compared are presented in tables \ref{tab9} to \ref{tab12}. We can immediately see that the impedance of the input, $Z_{in}$, is roughly the same in both cases.
+The same can be said about the output impedance, $Z_{out}$. The values of $Z_{out}$ obtained from the theoretical and the simulated calculations differ approximately 5$\Omega$, which is not a relevant difference in this context. The theoretical results presented in these tables are the absolute values of the calculations made from the expressions \ref{z_in} and \ref{z_out}.
+
+
+\begin{table}[H]
+\parbox{.5\linewidth}{
+\centering                
+\def\arraystretch{1}        % esp. entre linhas
+
+\begin{tabular}{c|c}        % lr = 2 col (esq/dir)
+\hline                      % linha topo
+
+\textbf{Name}  & \textbf{Value}\\     
+\hline                      % linha
+\input{impedances_tab}
+\hline                      % linha final
+\end{tabular}
+\captionsetup{justification=justified, margin=0.5cm} 
+\caption{Theoretical input and output impedances in $\Omega$.}
+\label{tab9}
+}
+\hfill
+\parbox{.5\linewidth}{
+\centering
+\def\arraystretch{1}
+
+\begin{tabular}{c|c}
+\hline    
+\textbf{Name} & \textbf{Value} \\ \hline
+\input{data_tab}
+\hline
+\end{tabular}
+\captionsetup{justification=justified, margin=0.5cm} 
+\caption{Simulation input and output impedances in $\Omega$.}
+\label{tab10}
+}
+\end{table}
+
+The gain plots are presented below in figure \ref{gain_total}.
+\begin{figure}[H]
+\centering
+\begin{subfigure}{0.5\textwidth}
+  \centering
+  \includegraphics[width=1.1\linewidth]{gain_dB.eps}
+  \caption{Octave plot}
+  \label{gain_octave}
+\end{subfigure}%
+\begin{subfigure}{.5\textwidth}
+  \centering
+  \includegraphics[width=0.9\linewidth]{vo1f.eps}
+  \caption{NgSpice plot}
+  \label{gain_ngspice}
+\end{subfigure}
+\caption{$V_{gain}$ as a function of $f$ (dB)}
+\label{gain_total}
+\end{figure}
+
+As proposed in the objectives of this laboratory assignment, the voltage gain of our circuit reached 40 dB, as proven by the theoretical and simulated calculations. 
+
+\begin{table}[H]
+\parbox{.5\linewidth}{
+\centering                
+\def\arraystretch{1}        % esp. entre linhas
+
+\begin{tabular}{c|c}        % lr = 2 col (esq/dir)
+\hline                      % linha topo
+
+\textbf{Name}  & \textbf{Value}\\     
+\hline                      % linha
+\input{results_tab}
+\hline                      % linha final
+\end{tabular}
+\captionsetup{justification=justified, margin=0.5cm} 
+\caption{Theoretical results}
+\label{tab11}
+}
+\hfill
+\parbox{.5\linewidth}{
+\centering
+\def\arraystretch{1}
+
+\begin{tabular}{c|c}
+\hline    
+\textbf{Name} & \textbf{Value} \\ \hline
+\input{freq_tab}
+\hline
+\end{tabular}
+\captionsetup{justification=justified, margin=0.5cm} 
+\caption{Simulated results}
+\label{tab12}
+}
+\end{table}
+
+
+
+Given that for us to obtain a central frequency of $f_0$=1 kHz in the theoretical model we would have had to use resistors and capacitors that we didn't have, we achieved $f_0$= 1023.086723 Hz with the allowed components. These results gave us a pass-band circuit with a bandwidth of 723 Hz.
+
+The results of the NgSpice \cite{bib:ngspice} model are somewhat similar to the ones mentioned before. The model itself provided the ideal central frequency (1 kHz), which was also achieved in the Octave \cite{bib:octave} analysis, but doubled the bandwidth of the pass-band circuit. Even though we cannot explain with certainty the cause of the discrepancy between models, we can draw a few conclusions from this. Firstly, both results were obtained with the exact number and type of components, leading us to believe that, given the complexity  and completeness of the NgSpice model, the real values would be much more similar to the NgSpice ones presented in table \ref{tab12}. We couldn't prove this first conclusion as the laboratory experience was long before the beginning of the theoretical and simulation study and in the lab we assembled a slightly different circuit. The last explanation we came up with to justify the difference between these values is that the type of OP-AMP used could have had an influence in the calculations, due to the approximations used. 
+
+Furthermore, the cost of the circuit was obtained from the NgSpice since it was computed using the model provided to us in the script. The merit was also obtained from NgSpice model. 
+
+Finally, as mentioned before, the voltage gain was approximately 40 dB in both models. 
